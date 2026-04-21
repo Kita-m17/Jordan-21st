@@ -432,7 +432,6 @@ showVerse();
 // ════════════════════════════════════════════════════════
 // PHOTOS — saved to localStorage, persist across refreshes
 // ════════════════════════════════════════════════════════
-// ── PRELOADED PHOTOS (always shown, not stored in localStorage) ──
 const preloadedPhotos = [
   { src: 'https://drive.google.com/uc?export=view&id=10f2_yU_ipGim5IxZBAAYG9U_FTjqZNbu', caption: 'Car pics' },
   { src: 'https://drive.google.com/uc?export=view&id=1eM4-796Pg7XafHpU6ij4ceglhioblWoN', caption: 'More car pics' },
@@ -510,7 +509,7 @@ function deletePhoto(id, e) {
   showToast('Photo removed.');
 }
 
-// Compress before saving — keeps storage usage reasonable
+// Compress before saving, keeps storage usage reasonable
 function compressImage(file, maxDim, quality) {
   return new Promise(resolve => {
     const reader = new FileReader();
