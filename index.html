@@ -330,34 +330,17 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
           <div class="retro-title">Our Memories</div>
         </div>
         <div class="photo-grid" id="photo-grid">
-          <div class="photo-card ph-placeholder">
-            <div class="photo-placeholder">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              <p>Add a memory</p>
-            </div>
-            <div class="photo-overlay"><span>Upload below</span></div>
-          </div>
-          <div class="photo-card ph-placeholder">
-            <div class="photo-placeholder">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              <p>Add a memory</p>
-            </div>
-            <div class="photo-overlay"><span>Upload below</span></div>
-          </div>
-          <div class="photo-card ph-placeholder">
-            <div class="photo-placeholder">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              <p>Add a memory</p>
-            </div>
-            <div class="photo-overlay"><span>Upload below</span></div>
-          </div>
-          <div class="photo-card ph-placeholder">
-            <div class="photo-placeholder">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              <p>Add a memory</p>
-            </div>
-            <div class="photo-overlay"><span>Upload below</span></div>
-          </div>
+          <!-- ════════════════════════════════════════════════════════
+               PRE-LOADED PHOTOS — replace each src with your Drive link
+               Format: https://drive.google.com/uc?export=view&id=FILE_ID
+               To get FILE_ID: open the photo in Drive → Share → Copy link
+               → the long string between /d/ and /view is your FILE_ID
+               ════════════════════════════════════════════════════════ -->
+          <!-- PHOTO 1 — replace src -->
+          <!-- PHOTO 2 — replace src -->
+          <!-- PHOTO 3 — replace src -->
+          <!-- PHOTO 4 — replace src -->
+          <!-- (add more by copying a .photo-card block below) -->
         </div>
         <div class="upload-bar" onclick="document.getElementById('upload').click()">
           <input type="file" id="upload" multiple accept="image/*" onchange="handleUpload(event)">
@@ -489,12 +472,45 @@ function nextVerse(){ vi=(vi+1)%verses.length; showVerse(); }
 function prevVerse(){ vi=(vi-1+verses.length)%verses.length; showVerse(); }
 showVerse();
 
-// ── PHOTO UPLOAD & LIGHTBOX ──
+const preloadedPhotos = [
+  { src: 'https://drive.google.com/file/d/10f2_yU_ipGim5IxZBAAYG9U_FTjqZNbu/view?usp=drive_link', caption: 'Car pics' },
+  { src: 'https://drive.google.com/file/d/1eM4-796Pg7XafHpU6ij4ceglhioblWoN/view?usp=drive_link', caption: 'more car pics' },
+  { src: 'https://drive.google.com/file/d/1Ag8qa4a3_yVrLi1eD0VeAhXtxXK7ljwB/view?usp=drive_link', caption: 'movies' },
+  { src: 'https://drive.google.com/file/d/1oWNOTcGbAdXrNjqXuzMsnm1mRLs7KMUD/view?usp=drive_link', caption: 'another car pic' },
+];
+
+// photoSrcs: pre-loaded photos first, then session uploads appended at runtime
 let photoSrcs = [];
+let photoCaptions = [];
 let lbIdx = 0;
 
+function buildPhotoCard(src, caption, idx) {
+  const card = document.createElement('div');
+  card.className = 'photo-card';
+  card.innerHTML = `
+    <img class="photo-card-img" src="${src}" alt="Memory">
+    <div class="photo-overlay"><span>${caption || 'Click to view full'}</span></div>
+    <div class="zoom-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+      </svg>
+    </div>`;
+  card.addEventListener('click', () => openLightbox(idx));
+  return card;
+}
+
+function initPreloadedPhotos() {
+  const grid = document.getElementById('photo-grid');
+  preloadedPhotos.forEach((p, i) => {
+    photoSrcs.push(p.src);
+    photoCaptions.push(p.caption || '');
+    grid.appendChild(buildPhotoCard(p.src, p.caption, i));
+  });
+}
+
+// ── SESSION UPLOADS (live on the day, reset on page refresh) ──
 function handleUpload(e) {
-  document.querySelectorAll('.ph-placeholder').forEach(c => c.remove());
   const grid = document.getElementById('photo-grid');
   Array.from(e.target.files).forEach(f => {
     const r = new FileReader();
@@ -502,23 +518,15 @@ function handleUpload(e) {
       const src = ev.target.result;
       const idx = photoSrcs.length;
       photoSrcs.push(src);
-      const card = document.createElement('div');
-      card.className = 'photo-card';
-      card.innerHTML = `
-        <img class="photo-card-img" src="${src}" alt="Memory">
-        <div class="photo-overlay"><span>Click to view full</span></div>
-        <div class="zoom-badge">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-        </div>
-      `;
-      card.addEventListener('click', () => openLightbox(idx));
-      grid.appendChild(card);
+      photoCaptions.push('');
+      grid.appendChild(buildPhotoCard(src, '', idx));
     };
     r.readAsDataURL(f);
   });
   e.target.value = '';
 }
 
+// ── LIGHTBOX ──
 function openLightbox(idx) {
   if (!photoSrcs.length) return;
   lbIdx = idx;
@@ -554,14 +562,43 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') lbNav(-1);
 });
 
-// ── GUESTBOOK ──
-const msgs = [
+initPreloadedPhotos();
+
+// ════════════════════════════════════════════════════════════════
+// GUESTBOOK — messages persist via localStorage across visits
+// ════════════════════════════════════════════════════════════════
+const STORAGE_KEY = 'jordan21_guestbook';
+
+// Nikita's pre-written message is the seed — only added if localStorage is empty
+const seedMsgs = [
   { name: 'Nikita', text: 'Happy 21st, my Jordy. Eight years and counting \u2014 here\u2019s to forever. I love you so much.', time: 'With all my heart \u2665' }
 ];
 
+function loadMsgs() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : null;
+  } catch(e) { return null; }
+}
+
+function saveMsgs(arr) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch(e) {}
+}
+
+let msgs = loadMsgs();
+if (!msgs) { msgs = [...seedMsgs]; saveMsgs(msgs); }
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 function renderMsgs() {
   document.getElementById('msg-list').innerHTML = msgs.map(m =>
-    `<div class="msg-card"><div class="msg-name">${m.name}</div><div class="msg-text">${m.text}</div><div class="msg-time">${m.time}</div></div>`
+    `<div class="msg-card">
+      <div class="msg-name">${escapeHtml(m.name)}</div>
+      <div class="msg-text">${escapeHtml(m.text)}</div>
+      <div class="msg-time">${escapeHtml(m.time)}</div>
+    </div>`
   ).join('');
 }
 
@@ -569,7 +606,12 @@ function submitMsg() {
   const n = document.getElementById('g-name').value.trim();
   const t = document.getElementById('g-text').value.trim();
   if (!n || !t) return;
-  msgs.unshift({ name: n, text: t, time: new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'}) });
+  const entry = {
+    name: n, text: t,
+    time: new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})
+  };
+  msgs.unshift(entry);
+  saveMsgs(msgs);
   renderMsgs();
   document.getElementById('g-name').value = '';
   document.getElementById('g-text').value = '';
