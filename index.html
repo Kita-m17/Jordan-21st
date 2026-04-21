@@ -24,30 +24,24 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
 .scanlines{position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px)}
 
-/* TICKER */
 .ticker{background:var(--hot);color:#fff;font-size:10px;letter-spacing:0.2em;padding:6px 0;overflow:hidden;white-space:nowrap;flex-shrink:0;z-index:10}
 .ticker-inner{display:inline-block;animation:ticker 22s linear infinite}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* LAYOUT */
 .app-body{display:flex;flex:1;overflow:hidden;position:relative}
 
-/* ── SIDEBAR ── */
 .sidebar{width:var(--sidebar-w);background:#110614;border-right:1px solid var(--border);display:flex;flex-direction:column;transition:width 0.32s cubic-bezier(.4,0,.2,1);flex-shrink:0;overflow:hidden;position:relative;z-index:20}
 .sidebar.collapsed{width:var(--sidebar-collapsed)}
-
-.sidebar-toggle{display:flex;align-items:center;justify-content:flex-end;padding:14px 14px;border-bottom:1px solid var(--border);flex-shrink:0;min-height:52px}
+.sidebar-toggle{display:flex;align-items:center;justify-content:flex-end;padding:14px;border-bottom:1px solid var(--border);flex-shrink:0;min-height:52px}
 .sidebar.collapsed .sidebar-toggle{justify-content:center;padding:14px 0}
 .toggle-btn{background:none;border:1px solid var(--border);color:var(--muted);width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
 .toggle-btn:hover{border-color:var(--pink);color:var(--pink)}
 .toggle-btn svg{transition:transform 0.32s}
 .sidebar.collapsed .toggle-btn svg{transform:rotate(180deg)}
-
 .sidebar-brand{padding:22px 20px 10px;flex-shrink:0;overflow:hidden;white-space:nowrap;transition:opacity 0.2s,height 0.32s,padding 0.32s}
 .sidebar.collapsed .sidebar-brand{opacity:0;height:0;padding:0;pointer-events:none}
 .brand-label{font-size:9px;letter-spacing:0.25em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
 .brand-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;font-style:italic;color:var(--pink);line-height:1.1}
-
 .nav-list{list-style:none;padding:8px 0;flex:1;overflow-y:auto;overflow-x:hidden}
 .nav-btn{width:100%;background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:13px 20px;cursor:pointer;display:flex;align-items:center;gap:13px;transition:color 0.2s,background 0.2s;white-space:nowrap;text-align:left;position:relative}
 .nav-btn:hover{color:var(--cream);background:#ff5fa00a}
@@ -57,30 +51,18 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .nav-label{transition:opacity 0.15s}
 .sidebar.collapsed .nav-label{opacity:0;width:0;overflow:hidden;pointer-events:none}
 .sidebar.collapsed .nav-btn{padding:13px 0;justify-content:center}
-
 .sidebar-footer{padding:16px 20px;border-top:1px solid var(--border);flex-shrink:0;white-space:nowrap;transition:opacity 0.2s,height 0.32s,padding 0.32s}
 .sidebar.collapsed .sidebar-footer{opacity:0;height:0;padding:0}
 .footer-text{font-size:9px;color:var(--muted);letter-spacing:0.1em}
 .footer-star{color:var(--pink)}
 
-/* ── MAIN ── */
 .main{flex:1;overflow:hidden;position:relative}
-
-/* PAGE TRANSITIONS */
 .page{position:absolute;inset:0;overflow-y:auto;display:none}
 .page.active{display:block;animation:pageSlideIn 0.32s cubic-bezier(.4,0,.2,1) both}
 .page.exit{display:block;animation:pageSlideOut 0.22s cubic-bezier(.4,0,.2,1) both;pointer-events:none}
+@keyframes pageSlideIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:translateX(0)}}
+@keyframes pageSlideOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-18px)}}
 
-@keyframes pageSlideIn{
-  from{opacity:0;transform:translateX(28px)}
-  to{opacity:1;transform:translateX(0)}
-}
-@keyframes pageSlideOut{
-  from{opacity:1;transform:translateX(0)}
-  to{opacity:0;transform:translateX(-18px)}
-}
-
-/* PAGE TOPBAR */
 .page-bar{padding:16px 36px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;background:#1a0a14dd;backdrop-filter:blur(4px);position:sticky;top:0;z-index:5}
 .page-bar-crumb{font-size:9px;letter-spacing:0.22em;color:var(--muted);text-transform:uppercase}
 .page-bar-sep{color:var(--border);font-size:13px}
@@ -89,7 +71,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .page-dot{width:6px;height:6px;border-radius:50%;background:var(--hot);animation:pulse 2s ease infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.35;transform:scale(0.65)}}
 
-/* ── HERO ── */
+/* HERO */
 #page-hero{background:var(--bg)}
 .hero-inner{min-height:calc(100vh - 53px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;position:relative}
 .hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
@@ -102,7 +84,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .blink{animation:blink 1.2s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 
-/* ── LETTER ── */
+/* LETTER */
 #page-letter{background:var(--bg)}
 .letter-inner{padding:56px 40px;display:flex;flex-direction:column;align-items:center}
 .letter-wrap{max-width:640px;width:100%;background:var(--card);border:1px solid var(--border)}
@@ -116,25 +98,33 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .letter-text p{margin-bottom:1.25em}
 .letter-sig{margin-top:34px;font-size:12px;color:var(--gold);letter-spacing:0.1em}
 
-/* ── MEMORIES ── */
+/* MEMORIES */
 #page-memories{background:var(--bg)}
 .memories-inner{padding:56px 40px}
 .retro-header{text-align:center;margin-bottom:40px}
 .retro-label{font-size:10px;letter-spacing:0.25em;color:var(--pink);text-transform:uppercase;margin-bottom:10px}
 .retro-title{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,56px);font-weight:900;font-style:italic;color:var(--cream)}
 
+.storage-bar{background:var(--card);border:1px solid var(--border);padding:12px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.storage-track{flex:1;height:4px;background:#ffffff10;position:relative}
+.storage-fill{height:100%;background:var(--pink);transition:width 0.4s ease}
+.storage-fill.warn{background:var(--gold)}
+.storage-fill.full{background:#ff2d78}
+.storage-label{font-size:9px;letter-spacing:0.15em;color:var(--muted);white-space:nowrap}
+.storage-pct{font-size:9px;letter-spacing:0.1em;color:var(--pink);min-width:36px;text-align:right}
+
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:4px;margin-bottom:22px}
 .photo-card{aspect-ratio:3/4;background:var(--card);border:1px solid var(--border);overflow:hidden;position:relative;cursor:pointer}
 .photo-card:hover .photo-overlay{opacity:1}
 .photo-card:hover .photo-card-img{transform:scale(1.06)}
-.photo-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted)}
-.photo-placeholder svg{opacity:0.35}
-.photo-placeholder p{font-size:10px;letter-spacing:0.1em;text-transform:uppercase}
 .photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(255,45,120,0.88) 0%,transparent 55%);display:flex;align-items:flex-end;padding:14px;opacity:0;transition:opacity 0.28s}
 .photo-overlay span{font-size:10px;letter-spacing:0.08em;color:#fff;text-transform:uppercase}
 .photo-card-img{width:100%;height:100%;object-fit:cover;display:block;filter:sepia(15%) contrast(108%);transition:transform 0.38s ease}
 .zoom-badge{position:absolute;top:10px;right:10px;background:#ff2d7890;width:28px;height:28px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.25s}
 .photo-card:hover .zoom-badge{opacity:1}
+.photo-delete{position:absolute;top:8px;left:8px;background:#1a0a14cc;border:1px solid var(--border);color:var(--muted);width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.2s,color 0.2s,border-color 0.2s;font-size:13px;line-height:1}
+.photo-card:hover .photo-delete{opacity:1}
+.photo-delete:hover{color:var(--hot);border-color:var(--hot)}
 
 .upload-bar{background:var(--card);border:1px dashed var(--muted);padding:26px;text-align:center;cursor:pointer;transition:border-color 0.28s}
 .upload-bar:hover{border-color:var(--pink)}
@@ -146,18 +136,17 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .lightbox{position:fixed;inset:0;background:rgba(10,2,8,0.94);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.26s}
 .lightbox.open{opacity:1;pointer-events:all}
 .lb-img-wrap{position:relative;display:flex;align-items:center;justify-content:center}
-.lightbox-img{max-width:82vw;max-height:84vh;object-fit:contain;border:1px solid var(--border);box-shadow:0 0 80px #ff5fa025;display:block}
+.lightbox-img{max-width:82vw;max-height:84vh;object-fit:contain;border:1px solid var(--border);display:block}
 .lb-img-wrap.anim{animation:lbSwitch 0.22s ease}
 @keyframes lbSwitch{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
 .lightbox-close{position:absolute;top:22px;right:26px;background:none;border:1px solid var(--muted);color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:all 0.2s}
 .lightbox-close:hover{border-color:var(--pink);color:var(--pink)}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--border);color:var(--muted);width:44px;height:44px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:2}
 .lb-nav:hover{border-color:var(--pink);color:var(--pink)}
-.lb-prev{left:22px}
-.lb-next{right:22px}
+.lb-prev{left:22px}.lb-next{right:22px}
 .lb-counter{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:0.2em;color:var(--muted)}
 
-/* ── VERSE ── */
+/* VERSE */
 #page-verse{background:var(--card)}
 .verse-inner{min-height:calc(100vh - 53px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;position:relative}
 .verse-scanline{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,95,160,0.018) 3px,rgba(255,95,160,0.018) 6px);pointer-events:none}
@@ -169,7 +158,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .v-btn:hover{border-color:var(--pink);color:var(--pink)}
 .verse-date{font-size:10px;color:var(--muted);margin-top:24px;letter-spacing:0.1em}
 
-/* ── GUESTBOOK ── */
+/* GUESTBOOK */
 #page-guestbook{background:var(--bg)}
 .gbook-inner{padding:56px 40px}
 .gbook-wrap{max-width:620px;margin:0 auto}
@@ -187,7 +176,10 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .msg-text{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:var(--cream);line-height:1.7}
 .msg-time{font-size:10px;color:var(--muted);margin-top:10px}
 
-/* RESPONSIVE */
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--card);border:1px solid var(--pink);color:var(--cream);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;padding:12px 20px;z-index:9998;opacity:0;transform:translateY(10px);transition:opacity 0.3s,transform 0.3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
 @media(max-width:640px){
   :root{--sidebar-w:190px;--sidebar-collapsed:0px}
   .sidebar.collapsed{width:0;border-right:none}
@@ -208,68 +200,49 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 </div>
 
 <div class="app-body">
-
-  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-toggle">
       <button class="toggle-btn" onclick="toggleSidebar()" title="Toggle menu">
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6">
-          <path d="M8.5 1.5L4 6.5l4.5 5"/>
-        </svg>
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8.5 1.5L4 6.5l4.5 5"/></svg>
       </button>
     </div>
-
     <div class="sidebar-brand">
       <div class="brand-label">celebrating</div>
       <div class="brand-name">Jordan<br>&#9733; 21st</div>
     </div>
-
     <ul class="nav-list">
-      <li>
-        <button class="nav-btn active" onclick="showPage('hero',this)">
-          <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-          <span class="nav-label">Home</span>
-        </button>
-      </li>
-      <li>
-        <button class="nav-btn" onclick="showPage('letter',this)">
-          <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
-          <span class="nav-label">Letter</span>
-        </button>
-      </li>
-      <li>
-        <button class="nav-btn" onclick="showPage('memories',this)">
-          <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
-          <span class="nav-label">Memories</span>
-        </button>
-      </li>
-      <li>
-        <button class="nav-btn" onclick="showPage('verse',this)">
-          <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
-          <span class="nav-label">Verse</span>
-        </button>
-      </li>
-      <li>
-        <button class="nav-btn" onclick="showPage('guestbook',this)">
-          <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
-          <span class="nav-label">Guestbook</span>
-        </button>
-      </li>
+      <li><button class="nav-btn active" onclick="showPage('hero',this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+        <span class="nav-label">Home</span>
+      </button></li>
+      <li><button class="nav-btn" onclick="showPage('letter',this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+        <span class="nav-label">Letter</span>
+      </button></li>
+      <li><button class="nav-btn" onclick="showPage('memories',this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
+        <span class="nav-label">Memories</span>
+      </button></li>
+      <li><button class="nav-btn" onclick="showPage('verse',this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="nav-label">Verse</span>
+      </button></li>
+      <li><button class="nav-btn" onclick="showPage('guestbook',this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+        <span class="nav-label">Guestbook</span>
+      </button></li>
     </ul>
-
     <div class="sidebar-footer">
       <div class="footer-text">Made with <span class="footer-star">&#9829;</span> by Nikita</div>
     </div>
   </aside>
 
-  <!-- MAIN -->
-  <main class="main" id="main">
+  <main class="main">
 
     <!-- HOME -->
     <div class="page active" id="page-hero">
       <div class="page-bar">
-        <span class="page-bar-crumb">jordan-21st</span>
-        <span class="page-bar-sep">/</span>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span>
         <span class="page-bar-title">Home</span>
         <div class="page-indicator"><span class="page-dot"></span>LIVE</div>
       </div>
@@ -286,8 +259,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
     <!-- LETTER -->
     <div class="page" id="page-letter">
       <div class="page-bar">
-        <span class="page-bar-crumb">jordan-21st</span>
-        <span class="page-bar-sep">/</span>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span>
         <span class="page-bar-title">Letter</span>
         <div class="page-indicator"><span class="page-dot"></span>LIVE</div>
       </div>
@@ -319,8 +291,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
     <!-- MEMORIES -->
     <div class="page" id="page-memories">
       <div class="page-bar">
-        <span class="page-bar-crumb">jordan-21st</span>
-        <span class="page-bar-sep">/</span>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span>
         <span class="page-bar-title">Memories</span>
         <div class="page-indicator"><span class="page-dot"></span>LIVE</div>
       </div>
@@ -329,23 +300,16 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
           <div class="retro-label">eight years &amp; counting</div>
           <div class="retro-title">Our Memories</div>
         </div>
-        <div class="photo-grid" id="photo-grid">
-          <!-- ════════════════════════════════════════════════════════
-               PRE-LOADED PHOTOS — replace each src with your Drive link
-               Format: https://drive.google.com/uc?export=view&id=FILE_ID
-               To get FILE_ID: open the photo in Drive → Share → Copy link
-               → the long string between /d/ and /view is your FILE_ID
-               ════════════════════════════════════════════════════════ -->
-          <!-- PHOTO 1 — replace src -->
-          <!-- PHOTO 2 — replace src -->
-          <!-- PHOTO 3 — replace src -->
-          <!-- PHOTO 4 — replace src -->
-          <!-- (add more by copying a .photo-card block below) -->
+        <div class="storage-bar">
+          <span class="storage-label">Storage used</span>
+          <div class="storage-track"><div class="storage-fill" id="storage-fill" style="width:0%"></div></div>
+          <span class="storage-pct" id="storage-pct">0%</span>
         </div>
+        <div class="photo-grid" id="photo-grid"></div>
         <div class="upload-bar" onclick="document.getElementById('upload').click()">
           <input type="file" id="upload" multiple accept="image/*" onchange="handleUpload(event)">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5fa0" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-          <p><strong>Upload photos</strong> &nbsp;&middot;&nbsp; click to browse your files</p>
+          <p><strong>Upload photos</strong> &nbsp;&middot;&nbsp; saved automatically to this device</p>
         </div>
       </div>
     </div>
@@ -353,8 +317,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
     <!-- VERSE -->
     <div class="page" id="page-verse">
       <div class="page-bar">
-        <span class="page-bar-crumb">jordan-21st</span>
-        <span class="page-bar-sep">/</span>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span>
         <span class="page-bar-title">Verse</span>
         <div class="page-indicator"><span class="page-dot"></span>LIVE</div>
       </div>
@@ -374,8 +337,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
     <!-- GUESTBOOK -->
     <div class="page" id="page-guestbook">
       <div class="page-bar">
-        <span class="page-bar-crumb">jordan-21st</span>
-        <span class="page-bar-sep">/</span>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span>
         <span class="page-bar-title">Guestbook</span>
         <div class="page-indicator"><span class="page-dot"></span>LIVE</div>
       </div>
@@ -387,14 +349,8 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
         <div class="gbook-wrap">
           <div class="retro-input-block">
             <h3>Write a message</h3>
-            <div class="field">
-              <label>Your name</label>
-              <input id="g-name" type="text" placeholder="e.g. Nikita">
-            </div>
-            <div class="field">
-              <label>Your message</label>
-              <textarea id="g-text" rows="4" placeholder="Tell Jordan something beautiful..."></textarea>
-            </div>
+            <div class="field"><label>Your name</label><input id="g-name" type="text" placeholder="e.g. Nikita"></div>
+            <div class="field"><label>Your message</label><textarea id="g-text" rows="4" placeholder="Tell Jordan something beautiful..."></textarea></div>
             <button class="send-btn" onclick="submitMsg()">Send with love &#9733;</button>
           </div>
           <div id="msg-list"></div>
@@ -409,35 +365,37 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 <div class="lightbox" id="lightbox" onclick="lbBgClick(event)">
   <button class="lightbox-close" onclick="closeLightbox()">&#10005; Close</button>
   <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8592;</button>
-  <div class="lb-img-wrap" id="lb-wrap">
-    <img class="lightbox-img" id="lb-img" src="" alt="Memory">
-  </div>
+  <div class="lb-img-wrap" id="lb-wrap"><img class="lightbox-img" id="lb-img" src="" alt="Memory"></div>
   <button class="lb-nav lb-next" onclick="lbNav(1)">&#8594;</button>
   <div class="lb-counter" id="lb-counter"></div>
 </div>
 
-<script>
-// ── PAGE TRANSITIONS ──
-let currentPage = 'hero';
+<div class="toast" id="toast"></div>
 
+<script>
+// ── TOAST ──
+function showToast(msg, dur) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur || 2800);
+}
+
+// ── NAV ──
+let currentPage = 'hero';
 function showPage(id, btn) {
   if (id === currentPage) return;
   const old = document.getElementById('page-' + currentPage);
   const next = document.getElementById('page-' + id);
-
   old.classList.remove('active');
   old.classList.add('exit');
   setTimeout(() => old.classList.remove('exit'), 260);
-
   next.scrollTop = 0;
   next.classList.add('active');
-
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
   currentPage = id;
 }
-
-// ── SIDEBAR ──
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('collapsed');
 }
@@ -456,7 +414,6 @@ const verses = [
   { t: '\u201cDelight yourself in the Lord, and he will give you the desires of your heart.\u201d', r: 'Psalm 37:4' }
 ];
 let vi = new Date().getDate() % verses.length;
-
 function showVerse() {
   const el = document.getElementById('verse-text');
   el.style.opacity = '0';
@@ -472,151 +429,179 @@ function nextVerse(){ vi=(vi+1)%verses.length; showVerse(); }
 function prevVerse(){ vi=(vi-1+verses.length)%verses.length; showVerse(); }
 showVerse();
 
-const preloadedPhotos = [
-  { src: 'https://drive.google.com/file/d/10f2_yU_ipGim5IxZBAAYG9U_FTjqZNbu/view?usp=drive_link', caption: 'Car pics' },
-  { src: 'https://drive.google.com/file/d/1eM4-796Pg7XafHpU6ij4ceglhioblWoN/view?usp=drive_link', caption: 'more car pics' },
-  { src: 'https://drive.google.com/file/d/1Ag8qa4a3_yVrLi1eD0VeAhXtxXK7ljwB/view?usp=drive_link', caption: 'movies' },
-  { src: 'https://drive.google.com/file/d/1oWNOTcGbAdXrNjqXuzMsnm1mRLs7KMUD/view?usp=drive_link', caption: 'another car pic' },
-];
+// ════════════════════════════════════════════════════════
+// PHOTOS — saved to localStorage, persist across refreshes
+// ════════════════════════════════════════════════════════
+const PHOTO_KEY = 'jordan21_photos';
+const MAX_MB = 4.5;
+let photos = [];
 
-// photoSrcs: pre-loaded photos first, then session uploads appended at runtime
-let photoSrcs = [];
-let photoCaptions = [];
-let lbIdx = 0;
+function loadPhotos() {
+  try { const r = localStorage.getItem(PHOTO_KEY); return r ? JSON.parse(r) : []; }
+  catch(e) { return []; }
+}
 
-function buildPhotoCard(src, caption, idx) {
+function savePhotos() {
+  try {
+    localStorage.setItem(PHOTO_KEY, JSON.stringify(photos));
+    updateStorageBar();
+  } catch(e) {
+    showToast('Storage full \u2014 delete some photos to make room.', 3500);
+  }
+}
+
+function getUsedMB() {
+  try { return ((localStorage.getItem(PHOTO_KEY) || '').length * 2) / (1024 * 1024); }
+  catch(e) { return 0; }
+}
+
+function updateStorageBar() {
+  const pct = Math.min(100, Math.round((getUsedMB() / MAX_MB) * 100));
+  const fill = document.getElementById('storage-fill');
+  const label = document.getElementById('storage-pct');
+  fill.style.width = pct + '%';
+  fill.className = 'storage-fill' + (pct > 85 ? ' full' : pct > 60 ? ' warn' : '');
+  label.textContent = pct + '%';
+  label.style.color = pct > 85 ? '#ff2d78' : pct > 60 ? '#e8b84b' : '#ff5fa0';
+}
+
+function buildCard(photo, idx) {
   const card = document.createElement('div');
   card.className = 'photo-card';
   card.innerHTML = `
-    <img class="photo-card-img" src="${src}" alt="Memory">
-    <div class="photo-overlay"><span>${caption || 'Click to view full'}</span></div>
+    <img class="photo-card-img" src="${photo.src}" alt="Memory" loading="lazy">
+    <div class="photo-overlay"><span>${photo.caption || 'Click to view'}</span></div>
     <div class="zoom-badge">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
         <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
       </svg>
-    </div>`;
+    </div>
+    <button class="photo-delete" title="Delete photo" onclick="deletePhoto('${photo.id}',event)">&#10005;</button>`;
   card.addEventListener('click', () => openLightbox(idx));
   return card;
 }
 
-function initPreloadedPhotos() {
+function renderGrid() {
   const grid = document.getElementById('photo-grid');
-  preloadedPhotos.forEach((p, i) => {
-    photoSrcs.push(p.src);
-    photoCaptions.push(p.caption || '');
-    grid.appendChild(buildPhotoCard(p.src, p.caption, i));
+  grid.innerHTML = '';
+  photos.forEach((p, i) => grid.appendChild(buildCard(p, i)));
+  updateStorageBar();
+}
+
+function deletePhoto(id, e) {
+  e.stopPropagation();
+  photos = photos.filter(p => String(p.id) !== String(id));
+  savePhotos();
+  renderGrid();
+  showToast('Photo removed.');
+}
+
+// Compress before saving — keeps storage usage reasonable
+function compressImage(file, maxDim, quality) {
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; }
+          else { w = Math.round(w * maxDim / h); h = maxDim; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
   });
 }
 
-// ── SESSION UPLOADS (live on the day, reset on page refresh) ──
-function handleUpload(e) {
-  const grid = document.getElementById('photo-grid');
-  Array.from(e.target.files).forEach(f => {
-    const r = new FileReader();
-    r.onload = ev => {
-      const src = ev.target.result;
-      const idx = photoSrcs.length;
-      photoSrcs.push(src);
-      photoCaptions.push('');
-      grid.appendChild(buildPhotoCard(src, '', idx));
-    };
-    r.readAsDataURL(f);
-  });
+async function handleUpload(e) {
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+  showToast('Saving ' + files.length + ' photo' + (files.length > 1 ? 's' : '') + '...');
+  for (const file of files) {
+    if (getUsedMB() >= MAX_MB) { showToast('Storage full! Delete some photos first.', 3500); break; }
+    try {
+      const src = await compressImage(file, 1200, 0.82);
+      photos.push({ src, caption: '', id: Date.now() + Math.random() });
+    } catch(err) { showToast('Could not save one photo \u2014 skipping.'); }
+  }
+  savePhotos();
+  renderGrid();
+  showToast('Saved! Photos will be here next time too \u2665', 3200);
   e.target.value = '';
 }
 
 // ── LIGHTBOX ──
+let lbIdx = 0;
 function openLightbox(idx) {
-  if (!photoSrcs.length) return;
+  if (!photos.length) return;
   lbIdx = idx;
-  document.getElementById('lb-img').src = photoSrcs[lbIdx];
-  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + photoSrcs.length;
+  document.getElementById('lb-img').src = photos[lbIdx].src;
+  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + photos.length;
   document.getElementById('lightbox').classList.add('open');
 }
-
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('open');
-}
-
-function lbBgClick(e) {
-  if (e.target === document.getElementById('lightbox')) closeLightbox();
-}
-
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+function lbBgClick(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
 function lbNav(dir) {
-  if (!photoSrcs.length) return;
-  lbIdx = (lbIdx + dir + photoSrcs.length) % photoSrcs.length;
+  if (!photos.length) return;
+  lbIdx = (lbIdx + dir + photos.length) % photos.length;
   const wrap = document.getElementById('lb-wrap');
-  wrap.classList.remove('anim');
-  void wrap.offsetWidth;
-  wrap.classList.add('anim');
-  document.getElementById('lb-img').src = photoSrcs[lbIdx];
-  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + photoSrcs.length;
+  wrap.classList.remove('anim'); void wrap.offsetWidth; wrap.classList.add('anim');
+  document.getElementById('lb-img').src = photos[lbIdx].src;
+  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + photos.length;
 }
-
 document.addEventListener('keydown', e => {
-  const lb = document.getElementById('lightbox');
-  if (!lb.classList.contains('open')) return;
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
   if (e.key === 'Escape') closeLightbox();
   if (e.key === 'ArrowRight') lbNav(1);
   if (e.key === 'ArrowLeft') lbNav(-1);
 });
 
-initPreloadedPhotos();
+photos = loadPhotos();
+renderGrid();
 
-// ════════════════════════════════════════════════════════════════
-// GUESTBOOK — messages persist via localStorage across visits
-// ════════════════════════════════════════════════════════════════
-const STORAGE_KEY = 'jordan21_guestbook';
-
-// Nikita's pre-written message is the seed — only added if localStorage is empty
+// ════════════════════════════════════════════════════════
+// GUESTBOOK — also persisted in localStorage
+// ════════════════════════════════════════════════════════
+const GBOOK_KEY = 'jordan21_guestbook';
 const seedMsgs = [
   { name: 'Nikita', text: 'Happy 21st, my Jordy. Eight years and counting \u2014 here\u2019s to forever. I love you so much.', time: 'With all my heart \u2665' }
 ];
-
 function loadMsgs() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : null;
-  } catch(e) { return null; }
+  try { const s = localStorage.getItem(GBOOK_KEY); return s ? JSON.parse(s) : null; }
+  catch(e) { return null; }
 }
-
 function saveMsgs(arr) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch(e) {}
+  try { localStorage.setItem(GBOOK_KEY, JSON.stringify(arr)); } catch(e) {}
 }
-
 let msgs = loadMsgs();
 if (!msgs) { msgs = [...seedMsgs]; saveMsgs(msgs); }
 
-function escapeHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
 function renderMsgs() {
   document.getElementById('msg-list').innerHTML = msgs.map(m =>
-    `<div class="msg-card">
-      <div class="msg-name">${escapeHtml(m.name)}</div>
-      <div class="msg-text">${escapeHtml(m.text)}</div>
-      <div class="msg-time">${escapeHtml(m.time)}</div>
-    </div>`
+    `<div class="msg-card"><div class="msg-name">${esc(m.name)}</div><div class="msg-text">${esc(m.text)}</div><div class="msg-time">${esc(m.time)}</div></div>`
   ).join('');
 }
-
 function submitMsg() {
   const n = document.getElementById('g-name').value.trim();
   const t = document.getElementById('g-text').value.trim();
   if (!n || !t) return;
-  const entry = {
-    name: n, text: t,
-    time: new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})
-  };
-  msgs.unshift(entry);
+  msgs.unshift({ name: n, text: t, time: new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) });
   saveMsgs(msgs);
   renderMsgs();
   document.getElementById('g-name').value = '';
   document.getElementById('g-text').value = '';
+  showToast('Message saved \u2665');
 }
-
 renderMsgs();
 </script>
 </body>
