@@ -30,6 +30,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
 .app-body{display:flex;flex:1;overflow:hidden;position:relative}
 
+/* ── SIDEBAR ── */
 .sidebar{width:var(--sidebar-w);background:#110614;border-right:1px solid var(--border);display:flex;flex-direction:column;transition:width 0.32s cubic-bezier(.4,0,.2,1);flex-shrink:0;overflow:hidden;position:relative;z-index:20}
 .sidebar.collapsed{width:var(--sidebar-collapsed)}
 .sidebar-toggle{display:flex;align-items:center;justify-content:flex-end;padding:14px;border-bottom:1px solid var(--border);flex-shrink:0;min-height:52px}
@@ -56,6 +57,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .footer-text{font-size:9px;color:var(--muted);letter-spacing:0.1em}
 .footer-star{color:var(--pink)}
 
+/* ── MAIN ── */
 .main{flex:1;overflow:hidden;position:relative}
 .page{position:absolute;inset:0;overflow-y:auto;display:none}
 .page.active{display:block;animation:pageSlideIn 0.32s cubic-bezier(.4,0,.2,1) both}
@@ -71,7 +73,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .page-dot{width:6px;height:6px;border-radius:50%;background:var(--hot);animation:pulse 2s ease infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.35;transform:scale(0.65)}}
 
-/* HERO */
+/* ── HERO ── */
 #page-hero{background:var(--bg)}
 .hero-inner{min-height:calc(100vh - 53px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;position:relative}
 .hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
@@ -84,7 +86,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .blink{animation:blink 1.2s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 
-/* LETTER */
+/* ── LETTER ── */
 #page-letter{background:var(--bg)}
 .letter-inner{padding:56px 40px;display:flex;flex-direction:column;align-items:center}
 .letter-wrap{max-width:640px;width:100%;background:var(--card);border:1px solid var(--border)}
@@ -98,45 +100,38 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .letter-text p{margin-bottom:1.25em}
 .letter-sig{margin-top:34px;font-size:12px;color:var(--gold);letter-spacing:0.1em}
 
-/* MEMORIES */
+/* ── MEMORIES ── */
 #page-memories{background:var(--bg)}
 .memories-inner{padding:56px 40px}
 .retro-header{text-align:center;margin-bottom:40px}
 .retro-label{font-size:10px;letter-spacing:0.25em;color:var(--pink);text-transform:uppercase;margin-bottom:10px}
 .retro-title{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,56px);font-weight:900;font-style:italic;color:var(--cream)}
-
-.storage-bar{background:var(--card);border:1px solid var(--border);padding:12px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
-.storage-track{flex:1;height:4px;background:#ffffff10;position:relative}
-.storage-fill{height:100%;background:var(--pink);transition:width 0.4s ease}
-.storage-fill.warn{background:var(--gold)}
-.storage-fill.full{background:#ff2d78}
-.storage-label{font-size:9px;letter-spacing:0.15em;color:var(--muted);white-space:nowrap}
-.storage-pct{font-size:9px;letter-spacing:0.1em;color:var(--pink);min-width:36px;text-align:right}
-
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:4px;margin-bottom:22px}
 .photo-card{aspect-ratio:3/4;background:var(--card);border:1px solid var(--border);overflow:hidden;position:relative;cursor:pointer}
 .photo-card:hover .photo-overlay{opacity:1}
 .photo-card:hover .photo-card-img{transform:scale(1.06)}
+.photo-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted)}
+.photo-placeholder svg{opacity:0.35}
+.photo-placeholder p{font-size:10px;letter-spacing:0.1em;text-transform:uppercase}
 .photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(255,45,120,0.88) 0%,transparent 55%);display:flex;align-items:flex-end;padding:14px;opacity:0;transition:opacity 0.28s}
 .photo-overlay span{font-size:10px;letter-spacing:0.08em;color:#fff;text-transform:uppercase}
 .photo-card-img{width:100%;height:100%;object-fit:cover;display:block;filter:sepia(15%) contrast(108%);transition:transform 0.38s ease}
 .zoom-badge{position:absolute;top:10px;right:10px;background:#ff2d7890;width:28px;height:28px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.25s}
 .photo-card:hover .zoom-badge{opacity:1}
-.photo-delete{position:absolute;top:8px;left:8px;background:#1a0a14cc;border:1px solid var(--border);color:var(--muted);width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.2s,color 0.2s,border-color 0.2s;font-size:13px;line-height:1}
-.photo-card:hover .photo-delete{opacity:1}
-.photo-delete:hover{color:var(--hot);border-color:var(--hot)}
-
 .upload-bar{background:var(--card);border:1px dashed var(--muted);padding:26px;text-align:center;cursor:pointer;transition:border-color 0.28s}
 .upload-bar:hover{border-color:var(--pink)}
 .upload-bar input{display:none}
 .upload-bar p{font-size:11px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-top:10px}
 .upload-bar p strong{color:var(--pink)}
 
+/* upload progress */
+.upload-progress{font-size:10px;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;text-align:center;margin-top:10px;min-height:18px}
+
 /* LIGHTBOX */
 .lightbox{position:fixed;inset:0;background:rgba(10,2,8,0.94);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.26s}
 .lightbox.open{opacity:1;pointer-events:all}
 .lb-img-wrap{position:relative;display:flex;align-items:center;justify-content:center}
-.lightbox-img{max-width:82vw;max-height:84vh;object-fit:contain;border:1px solid var(--border);display:block}
+.lightbox-img{max-width:82vw;max-height:84vh;object-fit:contain;border:1px solid var(--border);box-shadow:0 0 80px #ff5fa025;display:block}
 .lb-img-wrap.anim{animation:lbSwitch 0.22s ease}
 @keyframes lbSwitch{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
 .lightbox-close{position:absolute;top:22px;right:26px;background:none;border:1px solid var(--muted);color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:all 0.2s}
@@ -146,7 +141,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .lb-prev{left:22px}.lb-next{right:22px}
 .lb-counter{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:0.2em;color:var(--muted)}
 
-/* VERSE */
+/* ── VERSE ── */
 #page-verse{background:var(--card)}
 .verse-inner{min-height:calc(100vh - 53px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;position:relative}
 .verse-scanline{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,95,160,0.018) 3px,rgba(255,95,160,0.018) 6px);pointer-events:none}
@@ -158,7 +153,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .v-btn:hover{border-color:var(--pink);color:var(--pink)}
 .verse-date{font-size:10px;color:var(--muted);margin-top:24px;letter-spacing:0.1em}
 
-/* GUESTBOOK */
+/* ── GUESTBOOK ── */
 #page-guestbook{background:var(--bg)}
 .gbook-inner{padding:56px 40px}
 .gbook-wrap{max-width:620px;margin:0 auto}
@@ -168,17 +163,19 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .field label{display:block;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .field input,.field textarea{width:100%;background:#110614;border:1px solid var(--muted);color:var(--cream);font-family:'Space Mono',monospace;font-size:13px;padding:10px 14px;outline:none;resize:vertical;transition:border-color 0.2s}
 .field input:focus,.field textarea:focus{border-color:var(--pink)}
-.send-btn{background:var(--hot);border:none;color:#fff;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:background 0.2s;margin-top:8px}
+.send-btn{background:var(--hot);border:none;color:#fff;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:background 0.2s,opacity 0.2s;margin-top:8px}
 .send-btn:hover{background:var(--pink)}
+.send-btn:disabled{opacity:0.5;cursor:not-allowed}
 .msg-card{background:var(--card);border-left:3px solid var(--pink);padding:22px 26px;margin-bottom:10px;animation:fadeUp 0.38s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .msg-name{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--pink);margin-bottom:8px}
 .msg-text{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:var(--cream);line-height:1.7}
 .msg-time{font-size:10px;color:var(--muted);margin-top:10px}
+.msg-loading{font-size:10px;letter-spacing:0.15em;color:var(--muted);text-align:center;padding:24px;text-transform:uppercase}
 
-/* TOAST */
-.toast{position:fixed;bottom:28px;right:28px;background:var(--card);border:1px solid var(--pink);color:var(--cream);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;padding:12px 20px;z-index:9998;opacity:0;transform:translateY(10px);transition:opacity 0.3s,transform 0.3s;pointer-events:none}
-.toast.show{opacity:1;transform:translateY(0)}
+/* toast */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--pink);color:var(--cream);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.15em;padding:12px 24px;text-transform:uppercase;opacity:0;transition:all 0.3s;pointer-events:none;z-index:2000;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 @media(max-width:640px){
   :root{--sidebar-w:190px;--sidebar-collapsed:0px}
@@ -200,6 +197,8 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 </div>
 
 <div class="app-body">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-toggle">
       <button class="toggle-btn" onclick="toggleSidebar()" title="Toggle menu">
@@ -237,7 +236,8 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
     </div>
   </aside>
 
-  <main class="main">
+  <!-- MAIN -->
+  <main class="main" id="main">
 
     <!-- HOME -->
     <div class="page active" id="page-hero">
@@ -300,17 +300,20 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
           <div class="retro-label">eight years &amp; counting</div>
           <div class="retro-title">Our Memories</div>
         </div>
-        <div class="storage-bar">
-          <span class="storage-label">Storage used</span>
-          <div class="storage-track"><div class="storage-fill" id="storage-fill" style="width:0%"></div></div>
-          <span class="storage-pct" id="storage-pct">0%</span>
+        <div class="photo-grid" id="photo-grid">
+          <div class="photo-card ph-placeholder">
+            <div class="photo-placeholder">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              <p>Loading...</p>
+            </div>
+          </div>
         </div>
-        <div class="photo-grid" id="photo-grid"></div>
         <div class="upload-bar" onclick="document.getElementById('upload').click()">
           <input type="file" id="upload" multiple accept="image/*" onchange="handleUpload(event)">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5fa0" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-          <p><strong>Upload photos</strong> &nbsp;&middot;&nbsp; saved automatically to this device</p>
+          <p><strong>Upload photos</strong> &nbsp;&middot;&nbsp; saved forever &#9733;</p>
         </div>
+        <div class="upload-progress" id="upload-progress"></div>
       </div>
     </div>
 
@@ -349,11 +352,17 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
         <div class="gbook-wrap">
           <div class="retro-input-block">
             <h3>Write a message</h3>
-            <div class="field"><label>Your name</label><input id="g-name" type="text" placeholder="e.g. Nikita"></div>
-            <div class="field"><label>Your message</label><textarea id="g-text" rows="4" placeholder="Tell Jordan something beautiful..."></textarea></div>
-            <button class="send-btn" onclick="submitMsg()">Send with love &#9733;</button>
+            <div class="field">
+              <label>Your name</label>
+              <input id="g-name" type="text" placeholder="e.g. Nikita">
+            </div>
+            <div class="field">
+              <label>Your message</label>
+              <textarea id="g-text" rows="4" placeholder="Tell Jordan something beautiful..."></textarea>
+            </div>
+            <button class="send-btn" id="send-btn" onclick="submitMsg()">Send with love &#9733;</button>
           </div>
-          <div id="msg-list"></div>
+          <div id="msg-list"><div class="msg-loading">Loading messages...</div></div>
         </div>
       </div>
     </div>
@@ -364,24 +373,35 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="lbBgClick(event)">
   <button class="lightbox-close" onclick="closeLightbox()">&#10005; Close</button>
-  <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8592;</button>
-  <div class="lb-img-wrap" id="lb-wrap"><img class="lightbox-img" id="lb-img" src="" alt="Memory"></div>
-  <button class="lb-nav lb-next" onclick="lbNav(1)">&#8594;</button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1);event.stopPropagation()">&#8592;</button>
+  <div class="lb-img-wrap" id="lb-wrap">
+    <img class="lightbox-img" id="lb-img" src="" alt="Memory">
+  </div>
+  <button class="lb-nav lb-next" onclick="lbNav(1);event.stopPropagation()">&#8594;</button>
   <div class="lb-counter" id="lb-counter"></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ── TOAST ──
-function showToast(msg, dur) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), dur || 2800);
+// ── SUPABASE CONFIG ──
+const SUPABASE_URL = 'https://wkrldguncbudrimjlqej.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_WspwOpH9nq71-sTtDfqmNw_9cER4Xg1';
+const BUCKET = 'photos';
+
+async function sbFetch(path, opts = {}) {
+  const res = await fetch(SUPABASE_URL + path, {
+    ...opts,
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      ...(opts.headers || {})
+    }
+  });
+  return res;
 }
 
-// ── NAV ──
+// ── PAGE TRANSITIONS ──
 let currentPage = 'hero';
 function showPage(id, btn) {
   if (id === currentPage) return;
@@ -396,8 +416,18 @@ function showPage(id, btn) {
   if (btn) btn.classList.add('active');
   currentPage = id;
 }
+
+// ── SIDEBAR ──
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+// ── TOAST ──
+function showToast(msg, duration = 2800) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
 }
 
 // ── VERSES ──
@@ -429,194 +459,172 @@ function nextVerse(){ vi=(vi+1)%verses.length; showVerse(); }
 function prevVerse(){ vi=(vi-1+verses.length)%verses.length; showVerse(); }
 showVerse();
 
-// ════════════════════════════════════════════════════════
-// PHOTOS — saved to localStorage, persist across refreshes
-// ════════════════════════════════════════════════════════
-const preloadedPhotos = [
-  { src: 'https://drive.google.com/uc?export=view&id=10f2_yU_ipGim5IxZBAAYG9U_FTjqZNbu', caption: 'Car pics' },
-  { src: 'https://drive.google.com/uc?export=view&id=1eM4-796Pg7XafHpU6ij4ceglhioblWoN', caption: 'More car pics' },
-  { src: 'https://drive.google.com/uc?export=view&id=1Ag8qa4a3_yVrLi1eD0VeAhXtxXK7ljwB', caption: 'Movies' },
-  { src: 'https://drive.google.com/uc?export=view&id=1oWNOTcGbAdXrNjqXuzMsnm1mRLs7KMUD', caption: 'Another car pic' },
-];
+// ── PHOTOS ──
+let photoSrcs = []; // [{url, path}]
+let lbIdx = 0;
 
-const PHOTO_KEY = 'jordan21_photos';
-const MAX_MB = 4.5;
-let photos = [];
-
-function loadPhotos() {
-  try { const r = localStorage.getItem(PHOTO_KEY); return r ? JSON.parse(r) : []; }
-  catch(e) { return []; }
-}
-
-function savePhotos() {
-  try {
-    localStorage.setItem(PHOTO_KEY, JSON.stringify(photos));
-    updateStorageBar();
-  } catch(e) {
-    showToast('Storage full \u2014 delete some photos to make room.', 3500);
-  }
-}
-
-function getUsedMB() {
-  try { return ((localStorage.getItem(PHOTO_KEY) || '').length * 2) / (1024 * 1024); }
-  catch(e) { return 0; }
-}
-
-function updateStorageBar() {
-  const pct = Math.min(100, Math.round((getUsedMB() / MAX_MB) * 100));
-  const fill = document.getElementById('storage-fill');
-  const label = document.getElementById('storage-pct');
-  fill.style.width = pct + '%';
-  fill.className = 'storage-fill' + (pct > 85 ? ' full' : pct > 60 ? ' warn' : '');
-  label.textContent = pct + '%';
-  label.style.color = pct > 85 ? '#ff2d78' : pct > 60 ? '#e8b84b' : '#ff5fa0';
-}
-
-function buildCard(photo, idx, allPhotos) {
+function addPhotoCard(src, idx) {
+  const grid = document.getElementById('photo-grid');
   const card = document.createElement('div');
   card.className = 'photo-card';
-  const deleteBtn = photo.preloaded ? '' : `<button class="photo-delete" title="Delete photo" onclick="deletePhoto('${photo.id}',event)">&#10005;</button>`;
   card.innerHTML = `
-    <img class="photo-card-img" src="${photo.src}" alt="Memory" loading="lazy">
-    <div class="photo-overlay"><span>${photo.caption || 'Click to view'}</span></div>
+    <img class="photo-card-img" src="${src}" alt="Memory" loading="lazy">
+    <div class="photo-overlay"><span>Click to view full</span></div>
     <div class="zoom-badge">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
-      </svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
     </div>
-    ${deleteBtn}`;
-  card.addEventListener('click', () => openLightbox(idx, allPhotos));
-  return card;
+  `;
+  card.addEventListener('click', () => openLightbox(idx));
+  grid.appendChild(card);
 }
 
-function renderGrid() {
+async function loadPhotos() {
   const grid = document.getElementById('photo-grid');
-  grid.innerHTML = '';
-  const allPhotos = [
-    ...preloadedPhotos.map(p => ({ ...p, preloaded: true })),
-    ...photos
-  ];
-  allPhotos.forEach((p, i) => grid.appendChild(buildCard(p, i, allPhotos)));
-  updateStorageBar();
-}
-
-function deletePhoto(id, e) {
-  e.stopPropagation();
-  photos = photos.filter(p => String(p.id) !== String(id));
-  savePhotos();
-  renderGrid();
-  showToast('Photo removed.');
-}
-
-// Compress before saving, keeps storage usage reasonable
-function compressImage(file, maxDim, quality) {
-  return new Promise(resolve => {
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const img = new Image();
-      img.onload = () => {
-        let w = img.width, h = img.height;
-        if (w > maxDim || h > maxDim) {
-          if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; }
-          else { w = Math.round(w * maxDim / h); h = maxDim; }
-        }
-        const canvas = document.createElement('canvas');
-        canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        resolve(canvas.toDataURL('image/jpeg', quality));
-      };
-      img.src = ev.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
+  try {
+    const res = await sbFetch(`/rest/v1/photos?select=url&order=created_at.asc`);
+    const data = await res.json();
+    grid.innerHTML = '';
+    if (!data.length) {
+      grid.innerHTML = `<div class="photo-card ph-placeholder"><div class="photo-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>No photos yet</p></div></div>`;
+      return;
+    }
+    photoSrcs = data.map(d => d.url);
+    data.forEach((d, i) => addPhotoCard(d.url, i));
+  } catch(e) {
+    grid.innerHTML = `<div class="photo-card ph-placeholder"><div class="photo-placeholder"><p>Could not load photos</p></div></div>`;
+  }
 }
 
 async function handleUpload(e) {
   const files = Array.from(e.target.files);
   if (!files.length) return;
-  showToast('Saving ' + files.length + ' photo' + (files.length > 1 ? 's' : '') + '...');
+
+  const prog = document.getElementById('upload-progress');
+  prog.textContent = `Uploading ${files.length} photo${files.length > 1 ? 's' : ''}...`;
+
+  let uploaded = 0;
   for (const file of files) {
-    if (getUsedMB() >= MAX_MB) { showToast('Storage full! Delete some photos first.', 3500); break; }
-    try {
-      const src = await compressImage(file, 1200, 0.82);
-      photos.push({ src, caption: '', id: Date.now() + Math.random() });
-    } catch(err) { showToast('Could not save one photo \u2014 skipping.'); }
+    const ext = file.name.split('.').pop();
+    const path = `${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+
+    // Upload to storage
+    const upRes = await sbFetch(`/storage/v1/object/${BUCKET}/${path}`, {
+      method: 'POST',
+      headers: { 'Content-Type': file.type },
+      body: file
+    });
+
+    if (upRes.ok) {
+      const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${path}`;
+
+      // Save URL to photos table
+      await sbFetch('/rest/v1/photos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ url: publicUrl })
+      });
+
+      uploaded++;
+      prog.textContent = `Uploaded ${uploaded} / ${files.length}...`;
+    }
   }
-  savePhotos();
-  renderGrid();
-  showToast('Saved! Photos will be here next time too \u2665', 3200);
+
+  prog.textContent = uploaded === files.length ? `✓ All ${uploaded} photos saved!` : `${uploaded} of ${files.length} uploaded`;
+  setTimeout(() => prog.textContent = '', 3000);
   e.target.value = '';
+  await loadPhotos();
+  showToast(`${uploaded} photo${uploaded > 1 ? 's' : ''} saved ✓`);
 }
 
 // ── LIGHTBOX ──
-let lbIdx = 0;
-let lbPhotos = [];
-function openLightbox(idx, allPhotos) {
-  lbPhotos = allPhotos || [...preloadedPhotos.map(p => ({...p, preloaded:true})), ...photos];
-  if (!lbPhotos.length) return;
+function openLightbox(idx) {
+  if (!photoSrcs.length) return;
   lbIdx = idx;
-  document.getElementById('lb-img').src = lbPhotos[lbIdx].src;
-  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + lbPhotos.length;
+  document.getElementById('lb-img').src = photoSrcs[lbIdx];
+  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + photoSrcs.length;
   document.getElementById('lightbox').classList.add('open');
 }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
 function lbBgClick(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
 function lbNav(dir) {
-  if (!lbPhotos.length) return;
-  lbIdx = (lbIdx + dir + lbPhotos.length) % lbPhotos.length;
+  if (!photoSrcs.length) return;
+  lbIdx = (lbIdx + dir + photoSrcs.length) % photoSrcs.length;
   const wrap = document.getElementById('lb-wrap');
   wrap.classList.remove('anim'); void wrap.offsetWidth; wrap.classList.add('anim');
-  document.getElementById('lb-img').src = lbPhotos[lbIdx].src;
-  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + lbPhotos.length;
+  document.getElementById('lb-img').src = photoSrcs[lbIdx];
+  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + photoSrcs.length;
 }
 document.addEventListener('keydown', e => {
-  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('open')) return;
   if (e.key === 'Escape') closeLightbox();
   if (e.key === 'ArrowRight') lbNav(1);
   if (e.key === 'ArrowLeft') lbNav(-1);
 });
 
-photos = loadPhotos();
-renderGrid();
+// ── GUESTBOOK ──
+async function loadMessages() {
+  try {
+    const res = await sbFetch('/rest/v1/messages?select=name,message,created_at&order=created_at.desc');
+    const data = await res.json();
+    const list = document.getElementById('msg-list');
+    if (!data.length) {
+      list.innerHTML = '<div class="msg-loading">No messages yet — be the first! &#9733;</div>';
+      return;
+    }
+    list.innerHTML = data.map(m => {
+      const date = new Date(m.created_at).toLocaleDateString('en-ZA', {day:'numeric',month:'long',year:'numeric'});
+      return `<div class="msg-card">
+        <div class="msg-name">${escHtml(m.name)}</div>
+        <div class="msg-text">${escHtml(m.message)}</div>
+        <div class="msg-time">${date}</div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    document.getElementById('msg-list').innerHTML = '<div class="msg-loading">Could not load messages</div>';
+  }
+}
 
-// ════════════════════════════════════════════════════════
-// GUESTBOOK — also persisted in localStorage
-// ════════════════════════════════════════════════════════
-const GBOOK_KEY = 'jordan21_guestbook';
-const seedMsgs = [
-  { name: 'Nikita', text: 'Happy 21st, my Jordy. Eight years and counting \u2014 here\u2019s to forever. I love you so much.', time: 'With all my heart \u2665' }
-];
-function loadMsgs() {
-  try { const s = localStorage.getItem(GBOOK_KEY); return s ? JSON.parse(s) : null; }
-  catch(e) { return null; }
-}
-function saveMsgs(arr) {
-  try { localStorage.setItem(GBOOK_KEY, JSON.stringify(arr)); } catch(e) {}
-}
-let msgs = loadMsgs();
-if (!msgs) { msgs = [...seedMsgs]; saveMsgs(msgs); }
-
-function esc(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function renderMsgs() {
-  document.getElementById('msg-list').innerHTML = msgs.map(m =>
-    `<div class="msg-card"><div class="msg-name">${esc(m.name)}</div><div class="msg-text">${esc(m.text)}</div><div class="msg-time">${esc(m.time)}</div></div>`
-  ).join('');
-}
-function submitMsg() {
+async function submitMsg() {
   const n = document.getElementById('g-name').value.trim();
   const t = document.getElementById('g-text').value.trim();
-  if (!n || !t) return;
-  msgs.unshift({ name: n, text: t, time: new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) });
-  saveMsgs(msgs);
-  renderMsgs();
-  document.getElementById('g-name').value = '';
-  document.getElementById('g-text').value = '';
-  showToast('Message saved \u2665');
+  if (!n || !t) { showToast('Please fill in your name and message'); return; }
+
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try {
+    const res = await sbFetch('/rest/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ name: n, message: t })
+    });
+    if (res.ok) {
+      document.getElementById('g-name').value = '';
+      document.getElementById('g-text').value = '';
+      showToast('Message sent with love ✓');
+      await loadMessages();
+    } else {
+      showToast('Something went wrong, try again');
+    }
+  } catch(e) {
+    showToast('Could not send — check your connection');
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Send with love ★';
 }
-renderMsgs();
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── INIT ──
+loadPhotos();
+loadMessages();
 </script>
 </body>
 </html>
