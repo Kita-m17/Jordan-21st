@@ -9,19 +9,19 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#1a0a14;--pink:#ff5fa0;--hot:#ff2d78;--cream:#fff0e8;--gold:#e8b84b;
-  --muted:#7a4060;--card:#2a0f1e;--border:#ff5fa040;
+  --muted:#c47a9a;--card:#2a0f1e;--border:#ff5fa060;
   --sidebar-w:220px;--sidebar-collapsed:52px;
 }
 html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;display:flex;flex-direction:column}
 .scanlines{position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px)}
-.ticker{background:var(--hot);color:#fff;font-size:10px;letter-spacing:0.2em;padding:6px 0;overflow:hidden;white-space:nowrap;flex-shrink:0;z-index:10}
+.ticker{background:var(--hot);color:#000;font-size:10px;letter-spacing:0.2em;padding:6px 0;overflow:hidden;white-space:nowrap;flex-shrink:0;z-index:10}
 .ticker-inner{display:inline-block;animation:ticker 22s linear infinite}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .app-body{display:flex;flex:1;overflow:hidden;position:relative}
 .sidebar{width:var(--sidebar-w);background:#110614;border-right:1px solid var(--border);display:flex;flex-direction:column;transition:width 0.32s cubic-bezier(.4,0,.2,1);flex-shrink:0;overflow:hidden;position:relative;z-index:20}
 .sidebar.collapsed{width:var(--sidebar-collapsed)}
-.sidebar-toggle{display:flex;align-items:center;justify-content:flex-end;padding:14px;border-bottom:1px solid var(--border);flex-shrink:0;min-height:52px}
+.sidebar-toggle{display:flex;align-items:center;justify-content:flex-end;padding:14px;border-bottom:1px solid var(--border);flex-shrink:0;min-height:52px;min-width:52px}
 .sidebar.collapsed .sidebar-toggle{justify-content:center;padding:14px 0}
 .toggle-btn{background:none;border:1px solid var(--border);color:var(--muted);width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
 .toggle-btn:hover{border-color:var(--pink);color:var(--pink)}
@@ -189,21 +189,29 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .toast{position:fixed;bottom:28px;right:28px;background:var(--card);border:1px solid var(--pink);color:var(--cream);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;padding:12px 20px;z-index:9998;opacity:0;transform:translateY(10px);transition:opacity 0.3s,transform 0.3s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
 
+.mob-menu-btn{display:none;position:fixed;top:8px;left:8px;z-index:198;background:#110614;border:1px solid var(--pink);color:var(--pink);width:36px;height:36px;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all 0.2s;border-radius:2px}
+.mob-menu-btn:hover{border-color:var(--pink);color:var(--pink)}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:199}
+.mob-overlay.show{display:block}
 @media(max-width:640px){
-  :root{--sidebar-w:190px;--sidebar-collapsed:0px}
-  .sidebar.collapsed{width:0;border-right:none}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;z-index:200;width:240px !important;transform:translateX(-100%);transition:transform 0.32s cubic-bezier(.4,0,.2,1);border-right:1px solid var(--border)}
+  .sidebar.mob-open{transform:translateX(0)}
+  .sidebar-toggle{display:none}
+  .mob-menu-btn{display:flex}
   .letter-body{padding:28px 22px}
-  .gbook-inner,.letter-inner{padding:36px 18px}
-  .page-bar,.gazette-page-bar{padding:14px 18px}
+  .gbook-inner,.letter-inner,.memories-inner{padding:36px 18px}
+  .page-bar,.gazette-page-bar{padding:14px 18px;padding-left:56px}
   .gazette-body{column-count:1}
   .gazette-masthead{padding:20px 18px 14px}
   .gazette-dateline,.gazette-footer{padding:8px 18px}
   .gazette-body{padding:20px 18px}
+  .song-inner{padding:40px 18px}
 }
 </style>
 </head>
 <body>
 <div class="scanlines"></div>
+<div class="mob-overlay" id="mob-overlay" onclick="closeMobSidebar()"></div>
 <div class="ticker">
   <span class="ticker-inner">
     &nbsp;&nbsp;&nbsp;HAPPY 21ST BIRTHDAY JORDAN &nbsp;&#9733;&nbsp; FROM NIKITA WITH LOVE &nbsp;&#9733;&nbsp; EIGHT YEARS OF FRIENDSHIP &nbsp;&#9733;&nbsp; TWENTY-ONE LOOKS SO GOOD ON YOU &nbsp;&#9733;&nbsp; GOD'S GREATEST GIFT &nbsp;&#9733;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HAPPY 21ST BIRTHDAY JORDAN &nbsp;&#9733;&nbsp; FROM NIKITA WITH LOVE &nbsp;&#9733;&nbsp; EIGHT YEARS OF FRIENDSHIP &nbsp;&#9733;&nbsp; TWENTY-ONE LOOKS SO GOOD ON YOU &nbsp;&#9733;&nbsp; GOD'S GREATEST GIFT &nbsp;&#9733;&nbsp;
@@ -258,10 +266,13 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
     <!-- HOME -->
     <div class="page active" id="page-hero">
-      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Home</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
+      <div class="page-bar"><button class="mob-menu-btn" onclick="openMobSidebar()" title="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Home</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="hero-inner">
         <div class="hero-grid-bg"></div>
-        <div class="tag">21st Birthday &nbsp;&middot;&nbsp; 24 April 2026</div>
+        <div class="tag">21st Birthday &nbsp;&middot;&nbsp; 25 April 2026</div>
         <div class="hero-name">JOR<span>DAN</span></div>
         <div class="hero-21">Twenty &mdash; One &nbsp;<span class="blink">_</span></div>
         <div class="hero-rule"></div>
@@ -271,7 +282,10 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
     <!-- LETTER -->
     <div class="page" id="page-letter">
-      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Letter</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
+      <div class="page-bar"><button class="mob-menu-btn" onclick="openMobSidebar()" title="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Letter</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="letter-inner">
         <div class="letter-wrap">
           <div class="letter-header">
@@ -299,7 +313,10 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
     <!-- MEMORIES -->
     <div class="page" id="page-memories">
-      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Memories</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
+      <div class="page-bar"><button class="mob-menu-btn" onclick="openMobSidebar()" title="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Memories</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="memories-inner">
         <div style="text-align:center;margin-bottom:40px">
           <div style="font-size:10px;letter-spacing:0.25em;color:var(--pink);text-transform:uppercase;margin-bottom:10px">eight years &amp; counting</div>
@@ -311,7 +328,10 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
     <!-- VERSE -->
     <div class="page" id="page-verse">
-      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Verse</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
+      <div class="page-bar"><button class="mob-menu-btn" onclick="openMobSidebar()" title="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Verse</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="verse-inner">
         <div class="verse-scanline"></div>
         <div class="verse-number" id="verse-num">VERSE 01 / 10</div>
@@ -327,7 +347,10 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
     <!-- OUR SONG -->
     <div class="page" id="page-song">
-      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Our Song</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
+      <div class="page-bar"><button class="mob-menu-btn" onclick="openMobSidebar()" title="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Our Song</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="song-inner">
         <div class="song-grid-bg"></div>
         <div class="record">
@@ -355,17 +378,20 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
     <!-- GAZETTE -->
     <div class="page" id="page-gazette">
-      <div class="gazette-page-bar page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Gazette</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
+      <div class="gazette-page-bar page-bar"><button class="mob-menu-btn" onclick="openMobSidebar()" title="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Gazette</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="gazette-inner">
         <div class="gazette-masthead">
           <div class="gazette-edition">Special Edition &nbsp;&middot;&nbsp; Est. 2005 &nbsp;&middot;&nbsp; Price: One Hug</div>
           <div class="gazette-title">The Jordan Gazette</div>
-          <div class="gazette-sub">"All the news that matters, about the woman who matters most" &nbsp;&middot;&nbsp; 24 April 2026 &nbsp;&middot;&nbsp; Vol. 21, No. 1</div>
+          <div class="gazette-sub">"All the news that matters, about the woman who matters most" &nbsp;&middot;&nbsp; 25 April 2026 &nbsp;&middot;&nbsp; Vol. 21, No. 1</div>
         </div>
         <div class="gazette-dateline">
           <span>CAPE TOWN &amp; JOHANNESBURG, SOUTH AFRICA</span>
           <span>TWENTY-FIRST BIRTHDAY SPECIAL</span>
-          <span>FRIDAY, 24 APRIL 2026</span>
+          <span>SATURDAY, 25 APRIL 2026</span>
         </div>
         <div class="gazette-body">
 
@@ -373,8 +399,8 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
           <div class="gazette-subhead">Breaking: Jordan Confirmed to Be That Girl</div>
           <div class="gazette-byline">By Nikita &nbsp;&middot;&nbsp; Chief Correspondent &amp; Best Friend</div>
-          <div class="gazette-text">JOHANNESBURG &mdash; In what sources close to the matter are calling "the greatest thing to happen since sliced bread," Jordan celebrated her 21st birthday on Friday, 24 April 2026, bringing with her two decades of grace, grit, and an unshakeable faith that has quietly moved mountains around her.</div>
-          <div class="gazette-text">Born on 24 April 2005, Jordan arrived in this world and wasted no time making it better. Raised with strong family values and an even stronger faith, she has grown into a woman whose presence alone makes a room feel safer, warmer, and considerably more fashionable.</div>
+          <div class="gazette-text">JOHANNESBURG &mdash; In what sources close to the matter are calling "the greatest thing to happen since sliced bread," Jordan celebrated her 21st birthday on Saturday, 25 April 2026, bringing with her two decades of grace, grit, and an unshakeable faith that has quietly moved mountains around her.</div>
+          <div class="gazette-text">Born on 25 April 2005, Jordan arrived in this world and wasted no time making it better. Raised with strong family values and an even stronger faith, she has grown into a woman whose presence alone makes a room feel safer, warmer, and considerably more fashionable.</div>
 
           <div class="gazette-pullquote">"She did not come to play. She came to conquer &mdash; gracefully."</div>
 
@@ -393,7 +419,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
           <div class="gazette-box">
             <div class="gazette-box-title">Fast Facts &mdash; Jordan, Age 21</div>
-            <div class="gazette-text" style="margin-bottom:4px">&#9733; Born: 24 April 2005, Johannesburg</div>
+            <div class="gazette-text" style="margin-bottom:4px">&#9733; Born: 25 April 2005, Johannesburg</div>
             <div class="gazette-text" style="margin-bottom:4px">&#9733; Schools: Mondeor Primary &amp; High</div>
             <div class="gazette-text" style="margin-bottom:4px">&#9733; Degree: Financial Accounting, UWC</div>
             <div class="gazette-text" style="margin-bottom:4px">&#9733; Goal: Chartered Accountant (watch this space)</div>
@@ -430,7 +456,10 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
     <!-- GUESTBOOK -->
     <div class="page" id="page-guestbook">
-      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Guestbook</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
+      <div class="page-bar"><button class="mob-menu-btn" onclick="openMobSidebar()" title="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Guestbook</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="gbook-inner">
         <div class="retro-header">
           <div class="retro-label">leave Jordan some love</div>
@@ -485,8 +514,17 @@ function showPage(id, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
   currentPage = id;
+  closeMobSidebar();
 }
 function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
+function openMobSidebar() {
+  document.getElementById('sidebar').classList.add('mob-open');
+  document.getElementById('mob-overlay').classList.add('show');
+}
+function closeMobSidebar() {
+  document.getElementById('sidebar').classList.remove('mob-open');
+  document.getElementById('mob-overlay').classList.remove('show');
+}
 
 const verses = [
   { t: '\u201cShe is clothed with strength and dignity, and she laughs without fear of the future.\u201d', r: 'Proverbs 31:25' },
@@ -521,10 +559,8 @@ showVerse();
 // { src: 'YOUR_IMAGE_URL', caption: 'Caption' }
 // ════════════════════════════════════════
 const preloadedPhotos = [
-  { src: 'https://lh3.googleusercontent.com/d/10f2_yU_ipGim5IxZBAAYG9U_FTjqZNbu', caption: 'Car pics' },
-  { src: 'https://lh3.googleusercontent.com/d/1eM4-796Pg7XafHpU6ij4ceglhioblWoN', caption: 'More car pics' },
-  { src: 'https://lh3.googleusercontent.com/d/1Ag8qa4a3_yVrLi1eD0VeAhXtxXK7ljwB', caption: 'Movies' },
-  { src: 'https://lh3.googleusercontent.com/d/1oWNOTcGbAdXrNjqXuzMsnm1mRLs7KMUD', caption: 'Another car pic' },
+  // { src: 'https://...', caption: 'Car pics' },
+  // { src: 'https://...', caption: 'Movies' },
 ];
 
 function buildCard(photo, idx) {
@@ -575,6 +611,7 @@ document.addEventListener('keydown', e => {
 renderGrid();
 
 
+function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 function renderMsgs(msgs) {
