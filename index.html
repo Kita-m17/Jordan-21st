@@ -8,28 +8,17 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#1a0a14;
-  --pink:#ff5fa0;
-  --hot:#ff2d78;
-  --cream:#fff0e8;
-  --gold:#e8b84b;
-  --muted:#7a4060;
-  --card:#2a0f1e;
-  --border:#ff5fa040;
-  --sidebar-w:220px;
-  --sidebar-collapsed:52px;
+  --bg:#1a0a14;--pink:#ff5fa0;--hot:#ff2d78;--cream:#fff0e8;--gold:#e8b84b;
+  --muted:#7a4060;--card:#2a0f1e;--border:#ff5fa040;
+  --sidebar-w:220px;--sidebar-collapsed:52px;
 }
 html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;display:flex;flex-direction:column}
-
 .scanlines{position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px)}
-
 .ticker{background:var(--hot);color:#fff;font-size:10px;letter-spacing:0.2em;padding:6px 0;overflow:hidden;white-space:nowrap;flex-shrink:0;z-index:10}
 .ticker-inner{display:inline-block;animation:ticker 22s linear infinite}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
 .app-body{display:flex;flex:1;overflow:hidden;position:relative}
-
 .sidebar{width:var(--sidebar-w);background:#110614;border-right:1px solid var(--border);display:flex;flex-direction:column;transition:width 0.32s cubic-bezier(.4,0,.2,1);flex-shrink:0;overflow:hidden;position:relative;z-index:20}
 .sidebar.collapsed{width:var(--sidebar-collapsed)}
 .sidebar-toggle{display:flex;align-items:center;justify-content:flex-end;padding:14px;border-bottom:1px solid var(--border);flex-shrink:0;min-height:52px}
@@ -55,14 +44,12 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .sidebar.collapsed .sidebar-footer{opacity:0;height:0;padding:0}
 .footer-text{font-size:9px;color:var(--muted);letter-spacing:0.1em}
 .footer-star{color:var(--pink)}
-
 .main{flex:1;overflow:hidden;position:relative}
 .page{position:absolute;inset:0;overflow-y:auto;display:none}
 .page.active{display:block;animation:pageSlideIn 0.32s cubic-bezier(.4,0,.2,1) both}
 .page.exit{display:block;animation:pageSlideOut 0.22s cubic-bezier(.4,0,.2,1) both;pointer-events:none}
 @keyframes pageSlideIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:translateX(0)}}
 @keyframes pageSlideOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-18px)}}
-
 .page-bar{padding:16px 36px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;background:#1a0a14dd;backdrop-filter:blur(4px);position:sticky;top:0;z-index:5}
 .page-bar-crumb{font-size:9px;letter-spacing:0.22em;color:var(--muted);text-transform:uppercase}
 .page-bar-sep{color:var(--border);font-size:13px}
@@ -70,8 +57,6 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .page-indicator{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:9px;letter-spacing:0.15em;color:var(--muted)}
 .page-dot{width:6px;height:6px;border-radius:50%;background:var(--hot);animation:pulse 2s ease infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.35;transform:scale(0.65)}}
-
-/* HERO */
 #page-hero{background:var(--bg)}
 .hero-inner{min-height:calc(100vh - 53px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;position:relative}
 .hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
@@ -83,8 +68,6 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .hero-sub{font-size:11px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase}
 .blink{animation:blink 1.2s step-end infinite}
 @keyframes blink{50%{opacity:0}}
-
-/* LETTER */
 #page-letter{background:var(--bg)}
 .letter-inner{padding:56px 40px;display:flex;flex-direction:column;align-items:center}
 .letter-wrap{max-width:640px;width:100%;background:var(--card);border:1px solid var(--border)}
@@ -97,14 +80,11 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .letter-text{font-family:'Playfair Display',serif;font-size:17px;line-height:1.9;color:var(--cream);font-style:italic}
 .letter-text p{margin-bottom:1.25em}
 .letter-sig{margin-top:34px;font-size:12px;color:var(--gold);letter-spacing:0.1em}
-
-/* MEMORIES */
 #page-memories{background:var(--bg)}
 .memories-inner{padding:56px 40px}
 .retro-header{text-align:center;margin-bottom:40px}
 .retro-label{font-size:10px;letter-spacing:0.25em;color:var(--pink);text-transform:uppercase;margin-bottom:10px}
 .retro-title{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,56px);font-weight:900;font-style:italic;color:var(--cream)}
-
 .storage-bar{background:var(--card);border:1px solid var(--border);padding:12px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
 .storage-track{flex:1;height:4px;background:#ffffff10;position:relative}
 .storage-fill{height:100%;background:var(--pink);transition:width 0.4s ease}
@@ -112,7 +92,6 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .storage-fill.full{background:#ff2d78}
 .storage-label{font-size:9px;letter-spacing:0.15em;color:var(--muted);white-space:nowrap}
 .storage-pct{font-size:9px;letter-spacing:0.1em;color:var(--pink);min-width:36px;text-align:right}
-
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:4px;margin-bottom:22px}
 .photo-card{aspect-ratio:3/4;background:var(--card);border:1px solid var(--border);overflow:hidden;position:relative;cursor:pointer}
 .photo-card:hover .photo-overlay{opacity:1}
@@ -125,14 +104,11 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .photo-delete{position:absolute;top:8px;left:8px;background:#1a0a14cc;border:1px solid var(--border);color:var(--muted);width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.2s,color 0.2s,border-color 0.2s;font-size:13px;line-height:1}
 .photo-card:hover .photo-delete{opacity:1}
 .photo-delete:hover{color:var(--hot);border-color:var(--hot)}
-
 .upload-bar{background:var(--card);border:1px dashed var(--muted);padding:26px;text-align:center;cursor:pointer;transition:border-color 0.28s}
 .upload-bar:hover{border-color:var(--pink)}
 .upload-bar input{display:none}
 .upload-bar p{font-size:11px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-top:10px}
 .upload-bar p strong{color:var(--pink)}
-
-/* LIGHTBOX */
 .lightbox{position:fixed;inset:0;background:rgba(10,2,8,0.94);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.26s}
 .lightbox.open{opacity:1;pointer-events:all}
 .lb-img-wrap{position:relative;display:flex;align-items:center;justify-content:center}
@@ -145,8 +121,6 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .lb-nav:hover{border-color:var(--pink);color:var(--pink)}
 .lb-prev{left:22px}.lb-next{right:22px}
 .lb-counter{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:0.2em;color:var(--muted)}
-
-/* VERSE */
 #page-verse{background:var(--card)}
 .verse-inner{min-height:calc(100vh - 53px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;position:relative}
 .verse-scanline{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,95,160,0.018) 3px,rgba(255,95,160,0.018) 6px);pointer-events:none}
@@ -157,8 +131,6 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .v-btn{background:none;border:1px solid var(--muted);color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:10px 24px;cursor:pointer;transition:all 0.2s}
 .v-btn:hover{border-color:var(--pink);color:var(--pink)}
 .verse-date{font-size:10px;color:var(--muted);margin-top:24px;letter-spacing:0.1em}
-
-/* GUESTBOOK */
 #page-guestbook{background:var(--bg)}
 .gbook-inner{padding:56px 40px}
 .gbook-wrap{max-width:620px;margin:0 auto}
@@ -175,11 +147,8 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 .msg-name{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--pink);margin-bottom:8px}
 .msg-text{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:var(--cream);line-height:1.7}
 .msg-time{font-size:10px;color:var(--muted);margin-top:10px}
-
-/* TOAST */
 .toast{position:fixed;bottom:28px;right:28px;background:var(--card);border:1px solid var(--pink);color:var(--cream);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;padding:12px 20px;z-index:9998;opacity:0;transform:translateY(10px);transition:opacity 0.3s,transform 0.3s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
-
 @media(max-width:640px){
   :root{--sidebar-w:190px;--sidebar-collapsed:0px}
   .sidebar.collapsed{width:0;border-right:none}
@@ -192,13 +161,11 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 </head>
 <body>
 <div class="scanlines"></div>
-
 <div class="ticker">
   <span class="ticker-inner">
     &nbsp;&nbsp;&nbsp;HAPPY 21ST BIRTHDAY JORDAN &nbsp;&#9733;&nbsp; FROM NIKITA WITH LOVE &nbsp;&#9733;&nbsp; EIGHT YEARS OF FRIENDSHIP &nbsp;&#9733;&nbsp; TWENTY-ONE LOOKS SO GOOD ON YOU &nbsp;&#9733;&nbsp; GOD'S GREATEST GIFT &nbsp;&#9733;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HAPPY 21ST BIRTHDAY JORDAN &nbsp;&#9733;&nbsp; FROM NIKITA WITH LOVE &nbsp;&#9733;&nbsp; EIGHT YEARS OF FRIENDSHIP &nbsp;&#9733;&nbsp; TWENTY-ONE LOOKS SO GOOD ON YOU &nbsp;&#9733;&nbsp; GOD'S GREATEST GIFT &nbsp;&#9733;&nbsp;
   </span>
 </div>
-
 <div class="app-body">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-toggle">
@@ -236,16 +203,9 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
       <div class="footer-text">Made with <span class="footer-star">&#9829;</span> by Nikita</div>
     </div>
   </aside>
-
   <main class="main">
-
-    <!-- HOME -->
     <div class="page active" id="page-hero">
-      <div class="page-bar">
-        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span>
-        <span class="page-bar-title">Home</span>
-        <div class="page-indicator"><span class="page-dot"></span>LIVE</div>
-      </div>
+      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Home</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="hero-inner">
         <div class="hero-grid-bg"></div>
         <div class="tag">21st Birthday &nbsp;&middot;&nbsp; April 2026</div>
@@ -255,14 +215,8 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
         <div class="hero-sub">"She is clothed with strength and dignity" &nbsp;&middot;&nbsp; Prov 31:25</div>
       </div>
     </div>
-
-    <!-- LETTER -->
     <div class="page" id="page-letter">
-      <div class="page-bar">
-        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span>
-        <span class="page-bar-title">Letter</span>
-        <div class="page-indicator"><span class="page-dot"></span>LIVE</div>
-      </div>
+      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Letter</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="letter-inner">
         <div class="letter-wrap">
           <div class="letter-header">
@@ -287,40 +241,28 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
         </div>
       </div>
     </div>
-
-    <!-- MEMORIES -->
     <div class="page" id="page-memories">
-      <div class="page-bar">
-        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span>
-        <span class="page-bar-title">Memories</span>
-        <div class="page-indicator"><span class="page-dot"></span>LIVE</div>
-      </div>
+      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Memories</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="memories-inner">
         <div class="retro-header">
           <div class="retro-label">eight years &amp; counting</div>
           <div class="retro-title">Our Memories</div>
         </div>
         <div class="storage-bar">
-          <span class="storage-label">Storage used</span>
+          <span class="storage-label">Photos uploaded</span>
           <div class="storage-track"><div class="storage-fill" id="storage-fill" style="width:0%"></div></div>
-          <span class="storage-pct" id="storage-pct">0%</span>
+          <span class="storage-pct" id="storage-pct">0</span>
         </div>
         <div class="photo-grid" id="photo-grid"></div>
         <div class="upload-bar" onclick="document.getElementById('upload').click()">
           <input type="file" id="upload" multiple accept="image/*" onchange="handleUpload(event)">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5fa0" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-          <p><strong>Upload photos</strong> &nbsp;&middot;&nbsp; saved automatically to this device</p>
+          <p><strong>Upload photos</strong> &nbsp;&middot;&nbsp; saved to the cloud for everyone</p>
         </div>
       </div>
     </div>
-
-    <!-- VERSE -->
     <div class="page" id="page-verse">
-      <div class="page-bar">
-        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span>
-        <span class="page-bar-title">Verse</span>
-        <div class="page-indicator"><span class="page-dot"></span>LIVE</div>
-      </div>
+      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Verse</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="verse-inner">
         <div class="verse-scanline"></div>
         <div class="verse-number" id="verse-num">VERSE 01 / 10</div>
@@ -333,14 +275,8 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
         <div class="verse-date" id="verse-date"></div>
       </div>
     </div>
-
-    <!-- GUESTBOOK -->
     <div class="page" id="page-guestbook">
-      <div class="page-bar">
-        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span>
-        <span class="page-bar-title">Guestbook</span>
-        <div class="page-indicator"><span class="page-dot"></span>LIVE</div>
-      </div>
+      <div class="page-bar"><span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Guestbook</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="gbook-inner">
         <div class="retro-header">
           <div class="retro-label">leave Jordan some love</div>
@@ -357,11 +293,9 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
         </div>
       </div>
     </div>
-
   </main>
 </div>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="lbBgClick(event)">
   <button class="lightbox-close" onclick="closeLightbox()">&#10005; Close</button>
   <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8592;</button>
@@ -369,10 +303,31 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
   <button class="lb-nav lb-next" onclick="lbNav(1)">&#8594;</button>
   <div class="lb-counter" id="lb-counter"></div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
+// ════════════════════════════════════════
+// CONFIG — defined first so everything can use them
+// ════════════════════════════════════════
+const SB_URL = 'https://wkrldguncbudrimjlqej.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrcmxkZ3VuY2J1ZHJpbWpscWVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3NjY2NjAsImV4cCI6MjA5MjM0MjY2MH0.HxP5q5mkjbP0w9mHHrVckdDc5XZMAnYP3lVRtqk--FE';
+const BUCKET = 'photos';
+
+function sbHeaders(extra) {
+  return Object.assign({ 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }, extra || {});
+}
+
+// ════════════════════════════════════════
+// PRELOADED PHOTOS — hardcoded by Nikita, always visible
+// To add more: { src: 'YOUR_IMAGE_URL', caption: 'Caption here' }
+// ════════════════════════════════════════
+const preloadedPhotos = [
+  { src: 'https://lh3.googleusercontent.com/d/10f2_yU_ipGim5IxZBAAYG9U_FTjqZNbu', caption: 'Car pics' },
+  { src: 'https://lh3.googleusercontent.com/d/1eM4-796Pg7XafHpU6ij4ceglhioblWoN', caption: 'More car pics' },
+  { src: 'https://lh3.googleusercontent.com/d/1Ag8qa4a3_yVrLi1eD0VeAhXtxXK7ljwB', caption: 'Movies' },
+  { src: 'https://lh3.googleusercontent.com/d/1oWNOTcGbAdXrNjqXuzMsnm1mRLs7KMUD', caption: 'Another car pic' },
+];
+
 // ── TOAST ──
 function showToast(msg, dur) {
   const t = document.getElementById('toast');
@@ -387,18 +342,14 @@ function showPage(id, btn) {
   if (id === currentPage) return;
   const old = document.getElementById('page-' + currentPage);
   const next = document.getElementById('page-' + id);
-  old.classList.remove('active');
-  old.classList.add('exit');
+  old.classList.remove('active'); old.classList.add('exit');
   setTimeout(() => old.classList.remove('exit'), 260);
-  next.scrollTop = 0;
-  next.classList.add('active');
+  next.scrollTop = 0; next.classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
   currentPage = id;
 }
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('collapsed');
-}
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
 
 // ── VERSES ──
 const verses = [
@@ -429,64 +380,29 @@ function nextVerse(){ vi=(vi+1)%verses.length; showVerse(); }
 function prevVerse(){ vi=(vi-1+verses.length)%verses.length; showVerse(); }
 showVerse();
 
-// ════════════════════════════════════════════════════════
-// PHOTOS — saved to localStorage, persist across refreshes
-// ════════════════════════════════════════════════════════
-// ── PRELOADED PHOTOS (always shown, not stored in localStorage) ──
-const preloadedPhotos = [
-  { src: 'https://lh3.googleusercontent.com/d/10f2_yU_ipGim5IxZBAAYG9U_FTjqZNbu', caption: 'Car pics' },
-  { src: 'https://lh3.googleusercontent.com/d/1eM4-796Pg7XafHpU6ij4ceglhioblWoN', caption: 'More car pics' },
-  { src: 'https://lh3.googleusercontent.com/d/1Ag8qa4a3_yVrLi1eD0VeAhXtxXK7ljwB', caption: 'Movies' },
-  { src: 'https://lh3.googleusercontent.com/d/1oWNOTcGbAdXrNjqXuzMsnm1mRLs7KMUD', caption: 'Another car pic' },
-];
-
-const PHOTO_KEY = 'jordan21_photos';
-const MAX_MB = 4.5;
-let photos = [];
-
-function loadPhotos() {
-  try { const r = localStorage.getItem(PHOTO_KEY); return r ? JSON.parse(r) : []; }
-  catch(e) { return []; }
-}
-
-function savePhotos() {
-  try {
-    localStorage.setItem(PHOTO_KEY, JSON.stringify(photos));
-    updateStorageBar();
-  } catch(e) {
-    showToast('Storage full \u2014 delete some photos to make room.', 3500);
-  }
-}
-
-function getUsedMB() {
-  try { return ((localStorage.getItem(PHOTO_KEY) || '').length * 2) / (1024 * 1024); }
-  catch(e) { return 0; }
-}
+// ════════════════════════════════════════
+// PHOTOS — stored in Supabase, visible to everyone
+// ════════════════════════════════════════
+let uploadedPhotos = [];
 
 function updateStorageBar() {
-  const pct = Math.min(100, Math.round((getUsedMB() / MAX_MB) * 100));
+  const count = uploadedPhotos.length;
+  const pct = Math.min(100, Math.round((count / 50) * 100));
   const fill = document.getElementById('storage-fill');
-  const label = document.getElementById('storage-pct');
   fill.style.width = pct + '%';
   fill.className = 'storage-fill' + (pct > 85 ? ' full' : pct > 60 ? ' warn' : '');
-  label.textContent = pct + '%';
-  label.style.color = pct > 85 ? '#ff2d78' : pct > 60 ? '#e8b84b' : '#ff5fa0';
+  document.getElementById('storage-pct').textContent = count + ' photos';
 }
 
 function buildCard(photo, idx, allPhotos) {
   const card = document.createElement('div');
   card.className = 'photo-card';
-  const deleteBtn = photo.preloaded ? '' : `<button class="photo-delete" title="Delete photo" onclick="deletePhoto('${photo.id}',event)">&#10005;</button>`;
+  const delBtn = photo.preloaded ? '' : `<button class="photo-delete" title="Delete" onclick="deletePhoto('${photo.id}',event)">&#10005;</button>`;
   card.innerHTML = `
     <img class="photo-card-img" src="${photo.src}" alt="Memory" loading="lazy">
     <div class="photo-overlay"><span>${photo.caption || 'Click to view'}</span></div>
-    <div class="zoom-badge">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
-      </svg>
-    </div>
-    ${deleteBtn}`;
+    <div class="zoom-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+    ${delBtn}`;
   card.addEventListener('click', () => openLightbox(idx, allPhotos));
   return card;
 }
@@ -496,65 +412,66 @@ function renderGrid() {
   grid.innerHTML = '';
   const allPhotos = [
     ...preloadedPhotos.map(p => ({ ...p, preloaded: true })),
-    ...photos
+    ...uploadedPhotos
   ];
   allPhotos.forEach((p, i) => grid.appendChild(buildCard(p, i, allPhotos)));
   updateStorageBar();
 }
 
-function deletePhoto(id, e) {
-  e.stopPropagation();
-  photos = photos.filter(p => String(p.id) !== String(id));
-  savePhotos();
-  renderGrid();
-  showToast('Photo removed.');
+async function fetchPhotos() {
+  try {
+    const res = await fetch(SB_URL + '/rest/v1/photos?order=created_at.asc', { headers: sbHeaders() });
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    uploadedPhotos = data.map(p => ({ src: p.url, caption: p.caption || '', id: p.id }));
+    renderGrid();
+  } catch(e) {
+    showToast('Could not load photos \u2014 check your connection.', 3000);
+    renderGrid();
+  }
 }
 
-// Compress before saving — keeps storage usage reasonable
-function compressImage(file, maxDim, quality) {
-  return new Promise(resolve => {
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const img = new Image();
-      img.onload = () => {
-        let w = img.width, h = img.height;
-        if (w > maxDim || h > maxDim) {
-          if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; }
-          else { w = Math.round(w * maxDim / h); h = maxDim; }
-        }
-        const canvas = document.createElement('canvas');
-        canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        resolve(canvas.toDataURL('image/jpeg', quality));
-      };
-      img.src = ev.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
+async function deletePhoto(id, e) {
+  e.stopPropagation();
+  try {
+    await fetch(SB_URL + '/rest/v1/photos?id=eq.' + id, {
+      method: 'DELETE', headers: sbHeaders()
+    });
+    showToast('Photo removed.');
+    await fetchPhotos();
+  } catch(e) { showToast('Could not delete photo.'); }
 }
 
 async function handleUpload(e) {
   const files = Array.from(e.target.files);
   if (!files.length) return;
-  showToast('Saving ' + files.length + ' photo' + (files.length > 1 ? 's' : '') + '...');
+  showToast('Uploading ' + files.length + ' photo' + (files.length > 1 ? 's' : '') + '...');
   for (const file of files) {
-    if (getUsedMB() >= MAX_MB) { showToast('Storage full! Delete some photos first.', 3500); break; }
     try {
-      const src = await compressImage(file, 1200, 0.82);
-      photos.push({ src, caption: '', id: Date.now() + Math.random() });
-    } catch(err) { showToast('Could not save one photo \u2014 skipping.'); }
+      const fileName = Date.now() + '-' + Math.random().toString(36).slice(2) + '.' + file.name.split('.').pop();
+      const uploadRes = await fetch(SB_URL + '/storage/v1/object/' + BUCKET + '/' + fileName, {
+        method: 'POST',
+        headers: sbHeaders({ 'Content-Type': file.type }),
+        body: file
+      });
+      if (!uploadRes.ok) { showToast('Upload failed for ' + file.name); continue; }
+      const publicUrl = SB_URL + '/storage/v1/object/public/' + BUCKET + '/' + fileName;
+      await fetch(SB_URL + '/rest/v1/photos', {
+        method: 'POST',
+        headers: sbHeaders({ 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }),
+        body: JSON.stringify({ url: publicUrl, caption: '' })
+      });
+    } catch(err) { showToast('Error uploading ' + file.name); }
   }
-  savePhotos();
-  renderGrid();
-  showToast('Saved! Photos will be here next time too \u2665', 3200);
+  showToast('Photos saved! Everyone can see them \u2665', 3200);
   e.target.value = '';
+  await fetchPhotos();
 }
 
 // ── LIGHTBOX ──
-let lbIdx = 0;
-let lbPhotos = [];
+let lbIdx = 0, lbPhotos = [];
 function openLightbox(idx, allPhotos) {
-  lbPhotos = allPhotos || [...preloadedPhotos.map(p => ({...p, preloaded:true})), ...photos];
+  lbPhotos = allPhotos;
   if (!lbPhotos.length) return;
   lbIdx = idx;
   document.getElementById('lb-img').src = lbPhotos[lbIdx].src;
@@ -578,75 +495,57 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') lbNav(-1);
 });
 
-photos = loadPhotos();
-renderGrid();
-
-// ════════════════════════════════════════════════════════
-// GUESTBOOK — powered by Supabase, synced across all devices
-// ════════════════════════════════════════════════════════
-const SB_URL = 'https://wkrldguncbudrimjlqej.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrcmxkZ3VuY2J1ZHJpbWpscWVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3NjY2NjAsImV4cCI6MjA5MjM0MjY2MH0.HxP5q5mkjbP0w9mHHrVckdDc5XZMAnYP3lVRtqk--FE';
-
-function sbHeaders() {
-  return { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' };
-}
-
+// ════════════════════════════════════════
+// GUESTBOOK — Supabase, synced across all devices
+// ════════════════════════════════════════
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
 function renderMsgs(msgs) {
   const list = document.getElementById('msg-list');
   if (!msgs.length) {
-    list.innerHTML = '<div class="msg-card"><div class="msg-text" style="font-size:13px;opacity:0.5">No messages yet — be the first!</div></div>';
+    list.innerHTML = '<div class="msg-card"><div class="msg-text" style="font-size:13px;opacity:0.5">No messages yet \u2014 be the first!</div></div>';
     return;
   }
   list.innerHTML = msgs.map(m => {
     const date = m.created_at ? new Date(m.created_at).toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
-    return `<div class="msg-card">
-      <div class="msg-name">${esc(m.name)}</div>
-      <div class="msg-text">${esc(m.message)}</div>
-      <div class="msg-time">${date}</div>
-    </div>`;
+    return `<div class="msg-card"><div class="msg-name">${esc(m.name)}</div><div class="msg-text">${esc(m.message)}</div><div class="msg-time">${date}</div></div>`;
   }).join('');
 }
-
 async function fetchMsgs() {
   try {
     const res = await fetch(SB_URL + '/rest/v1/messages?order=created_at.desc', { headers: sbHeaders() });
-    if (!res.ok) throw new Error('fetch failed');
-    const data = await res.json();
-    renderMsgs(data);
+    if (!res.ok) throw new Error();
+    renderMsgs(await res.json());
   } catch(e) {
-    document.getElementById('msg-list').innerHTML = '<div class="msg-card"><div class="msg-text" style="font-size:13px;opacity:0.5">Could not load messages — check your connection.</div></div>';
+    document.getElementById('msg-list').innerHTML = '<div class="msg-card"><div class="msg-text" style="font-size:13px;opacity:0.5">Could not load messages \u2014 check your connection.</div></div>';
   }
 }
-
 async function submitMsg() {
   const n = document.getElementById('g-name').value.trim();
   const t = document.getElementById('g-text').value.trim();
   if (!n || !t) return;
   const btn = document.querySelector('.send-btn');
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
+  btn.textContent = 'Sending...'; btn.disabled = true;
   try {
     const res = await fetch(SB_URL + '/rest/v1/messages', {
       method: 'POST',
-      headers: { ...sbHeaders(), 'Prefer': 'return=minimal' },
+      headers: sbHeaders({ 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }),
       body: JSON.stringify({ name: n, message: t })
     });
-    if (!res.ok) throw new Error('insert failed');
+    if (!res.ok) throw new Error();
     document.getElementById('g-name').value = '';
     document.getElementById('g-text').value = '';
     showToast('Message sent \u2665 Everyone can see it now!', 3200);
     await fetchMsgs();
   } catch(e) {
-    showToast('Could not send \u2014 check your connection and try again.', 3500);
+    showToast('Could not send \u2014 check your connection.', 3500);
   }
-  btn.textContent = 'Send with love \u2733';
-  btn.disabled = false;
+  btn.textContent = 'Send with love \u2733'; btn.disabled = false;
 }
 
+// ── INIT ──
+fetchPhotos();
 fetchMsgs();
 </script>
 </body>
