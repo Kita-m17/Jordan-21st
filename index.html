@@ -521,10 +521,8 @@ showVerse();
 // { src: 'YOUR_IMAGE_URL', caption: 'Caption' }
 // ════════════════════════════════════════
 const preloadedPhotos = [
-  { src: 'https://lh3.googleusercontent.com/d/10f2_yU_ipGim5IxZBAAYG9U_FTjqZNbu', caption: 'Car pics' },
-  { src: 'https://lh3.googleusercontent.com/d/1eM4-796Pg7XafHpU6ij4ceglhioblWoN', caption: 'More car pics' },
-  { src: 'https://lh3.googleusercontent.com/d/1Ag8qa4a3_yVrLi1eD0VeAhXtxXK7ljwB', caption: 'Movies' },
-  { src: 'https://lh3.googleusercontent.com/d/1oWNOTcGbAdXrNjqXuzMsnm1mRLs7KMUD', caption: 'Another car pic' },
+  // { src: 'https://...', caption: 'Car pics' },
+  // { src: 'https://...', caption: 'Movies' },
 ];
 
 function buildCard(photo, idx) {
@@ -575,6 +573,7 @@ document.addEventListener('keydown', e => {
 renderGrid();
 
 
+function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 function renderMsgs(msgs) {
