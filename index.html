@@ -432,6 +432,14 @@ showVerse();
 // ════════════════════════════════════════════════════════
 // PHOTOS — saved to localStorage, persist across refreshes
 // ════════════════════════════════════════════════════════
+// ── PRELOADED PHOTOS (always shown, not stored in localStorage) ──
+const preloadedPhotos = [
+  { src: 'https://drive.google.com/uc?export=view&id=10f2_yU_ipGim5IxZBAAYG9U_FTjqZNbu', caption: 'Car pics' },
+  { src: 'https://drive.google.com/uc?export=view&id=1eM4-796Pg7XafHpU6ij4ceglhioblWoN', caption: 'More car pics' },
+  { src: 'https://drive.google.com/uc?export=view&id=1Ag8qa4a3_yVrLi1eD0VeAhXtxXK7ljwB', caption: 'Movies' },
+  { src: 'https://drive.google.com/uc?export=view&id=1oWNOTcGbAdXrNjqXuzMsnm1mRLs7KMUD', caption: 'Another car pic' },
+];
+
 const PHOTO_KEY = 'jordan21_photos';
 const MAX_MB = 4.5;
 let photos = [];
@@ -465,9 +473,10 @@ function updateStorageBar() {
   label.style.color = pct > 85 ? '#ff2d78' : pct > 60 ? '#e8b84b' : '#ff5fa0';
 }
 
-function buildCard(photo, idx) {
+function buildCard(photo, idx, allPhotos) {
   const card = document.createElement('div');
   card.className = 'photo-card';
+  const deleteBtn = photo.preloaded ? '' : `<button class="photo-delete" title="Delete photo" onclick="deletePhoto('${photo.id}',event)">&#10005;</button>`;
   card.innerHTML = `
     <img class="photo-card-img" src="${photo.src}" alt="Memory" loading="lazy">
     <div class="photo-overlay"><span>${photo.caption || 'Click to view'}</span></div>
@@ -477,15 +486,19 @@ function buildCard(photo, idx) {
         <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
       </svg>
     </div>
-    <button class="photo-delete" title="Delete photo" onclick="deletePhoto('${photo.id}',event)">&#10005;</button>`;
-  card.addEventListener('click', () => openLightbox(idx));
+    ${deleteBtn}`;
+  card.addEventListener('click', () => openLightbox(idx, allPhotos));
   return card;
 }
 
 function renderGrid() {
   const grid = document.getElementById('photo-grid');
   grid.innerHTML = '';
-  photos.forEach((p, i) => grid.appendChild(buildCard(p, i)));
+  const allPhotos = [
+    ...preloadedPhotos.map(p => ({ ...p, preloaded: true })),
+    ...photos
+  ];
+  allPhotos.forEach((p, i) => grid.appendChild(buildCard(p, i, allPhotos)));
   updateStorageBar();
 }
 
@@ -539,22 +552,24 @@ async function handleUpload(e) {
 
 // ── LIGHTBOX ──
 let lbIdx = 0;
-function openLightbox(idx) {
-  if (!photos.length) return;
+let lbPhotos = [];
+function openLightbox(idx, allPhotos) {
+  lbPhotos = allPhotos || [...preloadedPhotos.map(p => ({...p, preloaded:true})), ...photos];
+  if (!lbPhotos.length) return;
   lbIdx = idx;
-  document.getElementById('lb-img').src = photos[lbIdx].src;
-  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + photos.length;
+  document.getElementById('lb-img').src = lbPhotos[lbIdx].src;
+  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + lbPhotos.length;
   document.getElementById('lightbox').classList.add('open');
 }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
 function lbBgClick(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
 function lbNav(dir) {
-  if (!photos.length) return;
-  lbIdx = (lbIdx + dir + photos.length) % photos.length;
+  if (!lbPhotos.length) return;
+  lbIdx = (lbIdx + dir + lbPhotos.length) % lbPhotos.length;
   const wrap = document.getElementById('lb-wrap');
   wrap.classList.remove('anim'); void wrap.offsetWidth; wrap.classList.add('anim');
-  document.getElementById('lb-img').src = photos[lbIdx].src;
-  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + photos.length;
+  document.getElementById('lb-img').src = lbPhotos[lbIdx].src;
+  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' / ' + lbPhotos.length;
 }
 document.addEventListener('keydown', e => {
   if (!document.getElementById('lightbox').classList.contains('open')) return;
