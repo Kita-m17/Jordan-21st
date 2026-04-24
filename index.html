@@ -237,10 +237,6 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
         <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
         <span class="nav-label">Letter</span>
       </button></li>
-      <li><button class="nav-btn" onclick="showPage('memories',this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
-        <span class="nav-label">Memories</span>
-      </button></li>
       <li><button class="nav-btn" onclick="showPage('verse',this)">
         <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
         <span class="nav-label">Verse</span>
@@ -311,21 +307,6 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
       </div>
     </div>
 
-    <!-- MEMORIES -->
-    <div class="page" id="page-memories">
-      <div class="page-bar"><button class="mob-menu-btn" onclick="openMobSidebar()" title="Menu">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-        <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Memories</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
-      <div class="memories-inner">
-        <div style="text-align:center;margin-bottom:40px">
-          <div style="font-size:10px;letter-spacing:0.25em;color:var(--pink);text-transform:uppercase;margin-bottom:10px">eight years &amp; counting</div>
-          <div style="font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,56px);font-weight:900;font-style:italic;color:var(--cream)">Our Memories</div>
-        </div>
-        <div class="photo-grid" id="photo-grid"></div>
-      </div>
-    </div>
-
     <!-- VERSE -->
     <div class="page" id="page-verse">
       <div class="page-bar"><button class="mob-menu-btn" onclick="openMobSidebar()" title="Menu">
@@ -353,26 +334,28 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
         <span class="page-bar-crumb">jordan-21st</span><span class="page-bar-sep">/</span><span class="page-bar-title">Our Song</span><div class="page-indicator"><span class="page-dot"></span>LIVE</div></div>
       <div class="song-inner">
         <div class="song-grid-bg"></div>
-        <div class="record">
+        <div class="record" id="vinyl-record">
           <div class="record-label">
-            <div class="record-title">True Friend</div>
-            <div class="record-title" style="font-size:5px;opacity:0.8">Hannah Montana</div>
+            <div class="record-title">See You Again</div>
+            <div class="record-title" style="font-size:5px;opacity:0.8">Charlie Puth</div>
           </div>
         </div>
-        <div class="song-from">A song that makes me think of you</div>
-        <div class="song-name">True Friend</div>
-        <div class="song-artist">Hannah Montana</div>
-        <div class="song-note">"That's why you are a true friend. You're here till the end." &mdash; This song has always reminded me of you, Jordy. Through every season, every fall out, every comeback, every late night in Cape Town far from home &mdash; you showed me what a true friend really looks like.</div>
-        <a class="spotify-btn" href="https://open.spotify.com/search/True%20Friend%20Hannah%20Montana" target="_blank" rel="noopener">
+        <div class="song-from">A song that reminds me of us</div>
+        <div class="song-name">See You Again</div>
+        <div class="song-artist">Charlie Puth ft. Wiz Khalifa</div>
+        <div class="song-note">What started as something small &mdash; two strangers in a Grade 8 classroom &mdash; quietly turned into the most meaningful friendship I have ever known. Every distance we crossed, every season we grew through, every moment we found our way back to each other. This song is for all of that, and for you, Jordy.</div>
+        <a class="spotify-btn" href="https://open.spotify.com/track/2JzZzZUQj3Qff7wapcbKjc" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
           Listen on Spotify
         </a>
         <div class="qr-wrap">
           <div class="qr-label">Or scan to open</div>
           <div class="qr-box">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://open.spotify.com/search/True%20Friend%20Hannah%20Montana&color=1a0a14&bgcolor=f4e8d0" alt="QR code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://open.spotify.com/track/2JzZzZUQj3Qff7wapcbKjc&color=1a0a14&bgcolor=fff0e8" alt="QR code">
           </div>
         </div>
+        <!-- Hidden YouTube audio player for autoplay -->
+        <div id="yt-player" style="display:none"></div>
       </div>
     </div>
 
@@ -399,8 +382,8 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
           <div class="gazette-subhead">Breaking: Jordan Confirmed to Be That Girl</div>
           <div class="gazette-byline">By Nikita &nbsp;&middot;&nbsp; Chief Correspondent &amp; Best Friend</div>
-          <div class="gazette-text">JOHANNESBURG &mdash; In what sources close to the matter are calling "the greatest thing to happen since sliced bread," Jordan celebrated her 21st birthday on Saturday, 25 April 2026, bringing with her two decades of grace, grit, and an unshakeable faith that has quietly moved mountains around her.</div>
-          <div class="gazette-text">Born on 25 April 2005, Jordan arrived in this world and wasted no time making it better. Raised with strong family values and an even stronger faith, she has grown into a woman whose presence alone makes a room feel safer, warmer, and considerably more fashionable.</div>
+          <div class="gazette-text">JOHANNESBURG &mdash; In what sources close to the matter are calling "the greatest thing to happen since sliced bread," Jordan celebrated her 21st birthday on Friday, 24 April 2026, bringing with her two decades of grace, grit, and an unshakeable faith that has quietly moved mountains around her.</div>
+          <div class="gazette-text">Born on 24 April 2005, Jordan arrived in this world and wasted no time making it better. Raised with strong family values and an even stronger faith, she has grown into a woman whose presence alone makes a room feel safer, warmer, and considerably more fashionable.</div>
 
           <div class="gazette-pullquote">"She did not come to play. She came to conquer &mdash; gracefully."</div>
 
@@ -419,7 +402,7 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 
           <div class="gazette-box">
             <div class="gazette-box-title">Fast Facts &mdash; Jordan, Age 21</div>
-            <div class="gazette-text" style="margin-bottom:4px">&#9733; Born: 25 April 2005, Johannesburg</div>
+            <div class="gazette-text" style="margin-bottom:4px">&#9733; Born: 24 April 2005, Johannesburg</div>
             <div class="gazette-text" style="margin-bottom:4px">&#9733; Schools: Mondeor Primary &amp; High</div>
             <div class="gazette-text" style="margin-bottom:4px">&#9733; Degree: Financial Accounting, UWC</div>
             <div class="gazette-text" style="margin-bottom:4px">&#9733; Goal: Chartered Accountant (watch this space)</div>
@@ -503,6 +486,42 @@ function showToast(msg, dur) {
   setTimeout(() => t.classList.remove('show'), dur || 2800);
 }
 
+// ── YOUTUBE AUDIO AUTOPLAY ──
+let ytPlayer = null;
+let ytReady = false;
+let ytPendingPlay = false;
+
+function loadYouTubeAPI() {
+  if (document.getElementById('yt-api-script')) return;
+  const s = document.createElement('script');
+  s.id = 'yt-api-script';
+  s.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(s);
+}
+window.onYouTubeIframeAPIReady = function() {
+  ytReady = true;
+  ytPlayer = new YT.Player('yt-player', {
+    height: '1', width: '1',
+    videoId: 'RgKAFK5djSk',
+    playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: 'RgKAFK5djSk' },
+    events: {
+      onReady: function(e) {
+        if (ytPendingPlay) { e.target.setVolume(70); e.target.playVideo(); ytPendingPlay = false; }
+      }
+    }
+  });
+};
+function playSong() {
+  if (!ytReady || !ytPlayer || typeof ytPlayer.playVideo !== 'function') {
+    ytPendingPlay = true; loadYouTubeAPI(); return;
+  }
+  try { ytPlayer.setVolume(70); ytPlayer.playVideo(); } catch(e){}
+}
+function stopSong() {
+  if (ytPlayer && ytReady) { try { ytPlayer.pauseVideo(); } catch(e){} }
+}
+loadYouTubeAPI();
+
 let currentPage = 'hero';
 function showPage(id, btn) {
   if (id === currentPage) return;
@@ -513,6 +532,8 @@ function showPage(id, btn) {
   next.scrollTop = 0; next.classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
+  if (id === 'song') playSong();
+  else if (currentPage === 'song') stopSong();
   currentPage = id;
   closeMobSidebar();
 }
@@ -555,13 +576,12 @@ function prevVerse(){ vi=(vi-1+verses.length)%verses.length; showVerse(); }
 showVerse();
 
 // ════════════════════════════════════════
-// PRELOADED PHOTOS
+// PRELOADED PHOTOS — add your photo URLs here
+// { src: 'YOUR_IMAGE_URL', caption: 'Caption' }
 // ════════════════════════════════════════
 const preloadedPhotos = [
-  { src: 'https://lh3.googleusercontent.com/d/10f2_yU_ipGim5IxZBAAYG9U_FTjqZNbu', caption: 'Car pics' },
-  { src: 'https://lh3.googleusercontent.com/d/1eM4-796Pg7XafHpU6ij4ceglhioblWoN', caption: 'More car pics' },
-  { src: 'https://lh3.googleusercontent.com/d/1Ag8qa4a3_yVrLi1eD0VeAhXtxXK7ljwB', caption: 'Movies' },
-  { src: 'https://lh3.googleusercontent.com/d/1oWNOTcGbAdXrNjqXuzMsnm1mRLs7KMUD', caption: 'Another car pic' },
+  // { src: 'https://...', caption: 'Car pics' },
+  // { src: 'https://...', caption: 'Movies' },
 ];
 
 function buildCard(photo, idx) {
