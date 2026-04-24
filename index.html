@@ -503,10 +503,14 @@ window.onYouTubeIframeAPIReady = function() {
   ytPlayer = new YT.Player('yt-player', {
     height: '1', width: '1',
     videoId: 'RgKAFK5djSk',
-    playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: 'RgKAFK5djSk' },
+    playerVars: { autoplay: 0, controls: 0, start: 114, end: 174 },
     events: {
       onReady: function(e) {
-        if (ytPendingPlay) { e.target.setVolume(70); e.target.playVideo(); ytPendingPlay = false; }
+        if (ytPendingPlay) { e.target.setVolume(70); e.target.seekTo(114); e.target.playVideo(); ytPendingPlay = false; }
+      },
+      onStateChange: function(e) {
+        // When it reaches the end time, seek back to start and replay
+        if (e.data === YT.PlayerState.ENDED) { e.target.seekTo(114); e.target.playVideo(); }
       }
     }
   });
@@ -515,7 +519,7 @@ function playSong() {
   if (!ytReady || !ytPlayer || typeof ytPlayer.playVideo !== 'function') {
     ytPendingPlay = true; loadYouTubeAPI(); return;
   }
-  try { ytPlayer.setVolume(70); ytPlayer.playVideo(); } catch(e){}
+  try { ytPlayer.setVolume(70); ytPlayer.seekTo(114); ytPlayer.playVideo(); } catch(e){}
 }
 function stopSong() {
   if (ytPlayer && ytReady) { try { ytPlayer.pauseVideo(); } catch(e){} }
