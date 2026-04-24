@@ -632,29 +632,73 @@ document.addEventListener('keydown', e => {
 renderGrid();
 
 
+// ════════════════════════════════════════
+// GUESTBOOK — Supabase + localStorage fallback + pinned message
+// ════════════════════════════════════════
+const GBOOK_KEY = 'jordan21_guestbook';
+
+// Pinned message always shown at top regardless of connection
+const PINNED_MSG = {
+  name: 'Nikita',
+  message: 'Happy 21st, my Jordy. Eight years and counting \u2014 here\u2019s to forever. I love you so much.',
+  time: 'With all my heart \u2665',
+  pinned: true
+};
+
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
 function renderMsgs(msgs) {
   const list = document.getElementById('msg-list');
+  // Always show pinned message first
+  const pinnedHTML = `<div class="msg-card" style="border-left-color:var(--gold)">
+    <div class="msg-name" style="color:var(--gold)">&#9733; ${esc(PINNED_MSG.name)}</div>
+    <div class="msg-text">${esc(PINNED_MSG.message)}</div>
+    <div class="msg-time">${esc(PINNED_MSG.time)}</div>
+  </div>`;
+
   if (!msgs.length) {
-    list.innerHTML = '<div class="msg-card"><div class="msg-text" style="font-size:13px;opacity:0.5">No messages yet \u2014 be the first!</div></div>';
+    list.innerHTML = pinnedHTML + '<div class="msg-card"><div class="msg-text" style="font-size:13px;opacity:0.5">No messages yet \u2014 be the first!</div></div>';
     return;
   }
-  list.innerHTML = msgs.map(m => {
-    const date = m.created_at ? new Date(m.created_at).toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+  const msgsHTML = msgs.map(m => {
+    const date = m.created_at
+      ? new Date(m.created_at).toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})
+      : (m.time || '');
     return `<div class="msg-card"><div class="msg-name">${esc(m.name)}</div><div class="msg-text">${esc(m.message)}</div><div class="msg-time">${date}</div></div>`;
   }).join('');
+  list.innerHTML = pinnedHTML + msgsHTML;
 }
+
+function saveLocal(msgs) {
+  try { localStorage.setItem(GBOOK_KEY, JSON.stringify(msgs)); } catch(e) {}
+}
+function loadLocal() {
+  try { const s = localStorage.getItem(GBOOK_KEY); return s ? JSON.parse(s) : []; } catch(e) { return []; }
+}
+
 async function fetchMsgs() {
   try {
     const res = await fetch(SB_URL + '/rest/v1/messages?order=created_at.desc', { headers: sbHeaders() });
     if (!res.ok) throw new Error();
-    renderMsgs(await res.json());
+    const data = await res.json();
+    saveLocal(data); // cache in localStorage
+    renderMsgs(data);
   } catch(e) {
-    document.getElementById('msg-list').innerHTML = '<div class="msg-card"><div class="msg-text" style="font-size:13px;opacity:0.5">Could not load messages \u2014 check your connection.</div></div>';
+    // Fall back to localStorage if offline
+    const cached = loadLocal();
+    renderMsgs(cached);
+    if (!cached.length) {
+      document.getElementById('msg-list').innerHTML = `<div class="msg-card" style="border-left-color:var(--gold)">
+        <div class="msg-name" style="color:var(--gold)">&#9733; ${esc(PINNED_MSG.name)}</div>
+        <div class="msg-text">${esc(PINNED_MSG.message)}</div>
+        <div class="msg-time">${esc(PINNED_MSG.time)}</div>
+      </div><div class="msg-card"><div class="msg-text" style="font-size:13px;opacity:0.5">Could not load messages \u2014 check your connection.</div></div>`;
+    }
   }
 }
+
 async function submitMsg() {
   const n = document.getElementById('g-name').value.trim();
   const t = document.getElementById('g-text').value.trim();
@@ -673,12 +717,52 @@ async function submitMsg() {
     showToast('Message sent \u2665 Everyone can see it now!', 3200);
     await fetchMsgs();
   } catch(e) {
-    showToast('Could not send \u2014 check your connection.', 3500);
+    // Save locally if offline so message isn't lost
+    const cached = loadLocal();
+    cached.unshift({ name: n, message: t, time: new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) });
+    saveLocal(cached);
+    renderMsgs(cached);
+    document.getElementById('g-name').value = '';
+    document.getElementById('g-text').value = '';
+    showToast('Saved locally \u2014 will sync when online \u2665', 3200);
   }
   btn.textContent = 'Send with love \u2733'; btn.disabled = false;
 }
 
-fetchMsgs();
+// ════════════════════════════════════════
+// FLUSH — on load, push any locally saved messages to Supabase
+// then clear localStorage so there are no duplicates
+// ════════════════════════════════════════
+async function flushLocalToSupabase() {
+  const cached = loadLocal();
+  if (!cached.length) return;
+  // Only flush entries that don't have a created_at (i.e. saved offline, not from Supabase)
+  const pending = cached.filter(m => !m.created_at);
+  if (!pending.length) return;
+  let flushed = 0;
+  for (const m of pending) {
+    try {
+      const res = await fetch(SB_URL + '/rest/v1/messages', {
+        method: 'POST',
+        headers: sbHeaders({ 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }),
+        body: JSON.stringify({ name: m.name, message: m.message })
+      });
+      if (res.ok) flushed++;
+    } catch(e) {}
+  }
+  if (flushed > 0) {
+    // Clear local cache — Supabase is now the source of truth
+    localStorage.removeItem(GBOOK_KEY);
+    showToast(flushed + ' offline message' + (flushed > 1 ? 's' : '') + ' synced to Supabase \u2665', 3200);
+  }
+}
+
+async function init() {
+  await flushLocalToSupabase();
+  await fetchMsgs();
+}
+
+init();
 </script>
 </body>
 </html>
