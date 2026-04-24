@@ -479,7 +479,7 @@ function sbHeaders(extra) {
   return Object.assign({ 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }, extra || {});
 }
 
-// ── GUESTBOOK CONSTANTS (declared early so all functions can use them) ──
+//GUESTBOOK CONSTANTS
 const GBOOK_KEY = 'jordan21_guestbook';
 const PINNED_MSG = {
   name: 'Nikita',
@@ -494,7 +494,7 @@ function showToast(msg, dur) {
   setTimeout(() => t.classList.remove('show'), dur || 2800);
 }
 
-// ── YOUTUBE AUDIO AUTOPLAY ──
+//YT AUDIO AUTOPLAY
 let ytPlayer = null;
 let ytReady = false;
 let ytPendingPlay = false;
@@ -587,13 +587,9 @@ function nextVerse(){ vi=(vi+1)%verses.length; showVerse(); }
 function prevVerse(){ vi=(vi-1+verses.length)%verses.length; showVerse(); }
 showVerse();
 
-// ════════════════════════════════════════
+
 // PRELOADED PHOTOS — add your photo URLs here
-// { src: 'YOUR_IMAGE_URL', caption: 'Caption' }
-// ════════════════════════════════════════
 const preloadedPhotos = [
-  // { src: 'https://...', caption: 'Car pics' },
-  // { src: 'https://...', caption: 'Movies' },
 ];
 
 function buildCard(photo, idx) {
@@ -643,10 +639,7 @@ document.addEventListener('keydown', e => {
 });
 renderGrid();
 
-
-// ════════════════════════════════════════
 // GUESTBOOK — Supabase + localStorage fallback + pinned message
-// ════════════════════════════════════════
 
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -732,10 +725,8 @@ async function submitMsg() {
   btn.textContent = 'Send with love \u2733'; btn.disabled = false;
 }
 
-// ════════════════════════════════════════
 // FLUSH — on load, push any locally saved messages to Supabase
 // then clear localStorage so there are no duplicates
-// ════════════════════════════════════════
 async function flushLocalToSupabase() {
   const cached = loadLocal();
   if (!cached.length) return;
